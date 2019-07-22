@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 import styles from './styles'
 
 const <%= componentName %> = ({
-  <%= actions.join(',\n  ')%>
+<%= actions.map((action) => '  ' + action + ',\n').join('') -%>
 }) => (
   <View style={styles.container}>
     <Text><%= componentName %></Text>
