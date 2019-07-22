@@ -1,0 +1,29 @@
+{
+  "name": "generator-rn-caos",
+  "version": "1.0.0",
+  "description": "React Native - CAOS (Coding An Organized Software)",
+  "files": [
+    "generators"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint './generators'"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "react-native"
+  ],
+  "author": "Erick Massa Sprengel",
+  "license": "ISC",
+  "dependencies": {
+    "yeoman-generator": "^4.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
