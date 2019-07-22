@@ -2,21 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NavigationProp } from 'react-navigation'
 import { log } from 'src/utils/native_modules'
-import <%= componentName %> as <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
+import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 
-LOG_TAG = '<%= componentPath %>/<%= componentName %>'
+const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
 class <%= componentName %>Screen extends Component {
-
 <% for (const action of actions) { -%>
   <%= helpers.getHandleActionName(action) %> = () => {
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= action %> NOT IMPLEMENTED')
   }
-<% } -%>
 
+<% } -%>
   render () {
     return (
-      <<%= componentName %>
+      <<%= componentName %>Container
 <% for (const action of actions) { -%>
         <%= action %>={this.<%= helpers.getHandleActionName(action) %>}
 <% } -%>
