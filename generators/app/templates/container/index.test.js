@@ -18,15 +18,16 @@ describe('<%= componentName %> container', () => {
 <% for (const action of actions) { %>
   test('<%= action %> should be called', () => {
     const <%= action %> = jest.fn()
+    const actionMessage = '<%= action %>'
 
-    const instance = shallow(
+    const wrapper = shallow(
       <<%= componentName %>
 <% for (const actionI of actions) { -%>
         <%= actionI %>={<%- actionI === action ? actionI : '() => null' %>}
 <% } -%>
       />
     )
-    instance.find('Button').at(2).simulate('press')
+    wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
 
     expect(<%= action %>).toBeCalled()
   })
