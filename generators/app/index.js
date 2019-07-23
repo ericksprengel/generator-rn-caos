@@ -37,6 +37,11 @@ module.exports = class extends Generator {
       },
       {
         type: 'input',
+        name: 'inputs',
+        message: 'List input views (ex.: email, password):'
+      },
+      {
+        type: 'input',
         name: 'actions',
         message: 'List button actions:'
       }
@@ -52,7 +57,8 @@ module.exports = class extends Generator {
   _writeContainer () {
     const componentPath = this.answers.path
     const componentName = this.answers.name
-    const actions = this.answers.actions.split(',')
+    const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
+    const actions = this.answers.actions ? this.answers.actions.split(',') : []
 
     for (const item of CONTAINER_FILES) {
       this.fs.copyTpl(
@@ -60,7 +66,9 @@ module.exports = class extends Generator {
         this.destinationPath('src/containers/' + componentPath + '/' + componentName + '/' + item),
         {
           componentName,
-          actions
+          inputs,
+          actions,
+          helpers
         }
       )
     }
@@ -69,7 +77,8 @@ module.exports = class extends Generator {
   _writeScreen () {
     const componentPath = this.answers.path
     const componentName = this.answers.name
-    const actions = this.answers.actions.split(',')
+    const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
+    const actions = this.answers.actions ? this.answers.actions.split(',') : []
 
     for (const item of SCREEN_FILES) {
       this.fs.copyTpl(
@@ -78,6 +87,7 @@ module.exports = class extends Generator {
         {
           componentName,
           componentPath,
+          inputs,
           actions,
           helpers
         }

@@ -6,6 +6,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
   },
+  input: {
+    padding: 10,
+  },
+  button: {
+    padding: 10,
+  },
 })
 
 export default styles

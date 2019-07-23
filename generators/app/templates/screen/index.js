@@ -7,6 +7,24 @@ import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
 class <%= componentName %>Screen extends Component {
+  state = {
+<% for (const input of inputs) { -%>
+    <%- input -%> = '',
+    <%- input -%>Status = 'default',
+    <%- input -%>Message = '',
+<% } -%>
+  }
+
+<% for (const input of inputs) { -%>
+  <%= helpers.getInputCallbackName(input) %> = (<%= input %>) => {
+    log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= input %> NOT IMPLEMENTED')
+    this.setState({
+      <%= input %>,
+    })
+  }
+
+<% } -%>
+
 <% for (const action of actions) { -%>
   <%= helpers.getHandleActionName(action) %> = () => {
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= action %> NOT IMPLEMENTED')
@@ -14,8 +32,21 @@ class <%= componentName %>Screen extends Component {
 
 <% } -%>
   render () {
+    const {
+<% for (const input of inputs) { -%>
+      <%- input -%>,
+      <%- input -%>Status,
+      <%- input -%>Message,
+<% } -%>
+    } = this.state
     return (
       <<%= componentName %>Container
+<% for (const input of inputs) { -%>
+        <%- input -%>={<%- input -%>}
+        <%- input -%>Status={<%- input -%>Status}
+        <%- input -%>Message={<%- input -%>Message}
+        <%= helpers.getInputCallbackName(input) %>={this.<%= helpers.getInputCallbackName(input) %>}
+<% } -%>
 <% for (const action of actions) { -%>
         <%= action %>={this.<%= helpers.getHandleActionName(action) %>}
 <% } -%>
