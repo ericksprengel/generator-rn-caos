@@ -1,16 +1,19 @@
 import { StyleSheet } from 'react-native'
+import { Util } from 'jadd-components'
+
+const { scale } = Util.style
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 10,
+    padding: scale(10),
   },
   input: {
-    padding: 10,
+    margin: scale(10),
   },
   button: {
-    padding: 10,
+    margin: scale(10),
   },
 })
 
