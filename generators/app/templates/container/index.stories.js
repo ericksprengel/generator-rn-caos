@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
 import <%= componentName %> from '.'
 
-storiesOf('<%= componentName %> page', module)
+storiesOf('containers/<%= componentPath %>/<%= componentName %>', module)
   .add('default', () => (
     <<%= componentName %>
 <% for (const input of inputs) { -%>

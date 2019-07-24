@@ -66,6 +66,7 @@ module.exports = class extends Generator {
         this.destinationPath('src/containers/' + componentPath + '/' + componentName + '/' + item),
         {
           componentName,
+          componentPath,
           inputs,
           actions,
           helpers
