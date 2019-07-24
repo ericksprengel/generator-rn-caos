@@ -1,6 +1,6 @@
 {
   "name": "generator-rn-caos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native - CAOS (Coding An Organized Software)",
   "files": [
     "generators"
@@ -13,8 +13,18 @@
     "yeoman-generator",
     "react-native"
   ],
-  "author": "Erick Massa Sprengel",
-  "license": "ISC",
+  "homepage": "https://github.com/ericksprengel/generator-rn-caos",
+  "bugs": "https://github.com/ericksprengel/generator-rn-caos/issues",
+  "author": {
+    "name": "Erick Massa Sprengel",
+    "email": "erick.sprengel@gmail.com",
+    "url": "https://github.com/ericksprengel"
+  },
+  "repository": {
+      "type": "git",
+      "url": "git@github.com:ericksprengel/generator-rn-caos.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "yeoman-generator": "^4.0.1"
   },
