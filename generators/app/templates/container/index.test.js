@@ -7,6 +7,12 @@ describe('<%= componentName %> container', () => {
   test('renders correctly', () => {
     const tree = renderer.create(
       <<%= componentName %>
+<% for (const input of inputs) { -%>
+        <%- input -%>="<%- input -%> bla"
+        <%- input -%>Status="default"
+        <%- input -%>Message="message"
+        <%= helpers.getInputCallbackName(input) %>={() => null}
+<% } -%>
 <% for (const action of actions) { -%>
         <%= action %>={() => null}
 <% } -%>
@@ -22,6 +28,12 @@ describe('<%= componentName %> container', () => {
 
     const wrapper = shallow(
       <<%= componentName %>
+<% for (const input of inputs) { -%>
+        <%- input -%>="<%- input -%> bla"
+        <%- input -%>Status="default"
+        <%- input -%>Message="message"
+        <%= helpers.getInputCallbackName(input) %>={() => null}
+<% } -%>
 <% for (const actionI of actions) { -%>
         <%= actionI %>={<%- actionI === action ? actionI : '() => null' %>}
 <% } -%>

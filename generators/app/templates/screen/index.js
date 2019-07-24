@@ -9,9 +9,9 @@ const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 class <%= componentName %>Screen extends Component {
   state = {
 <% for (const input of inputs) { -%>
-    <%- input -%> = '',
-    <%- input -%>Status = 'default',
-    <%- input -%>Message = '',
+    <%- input -%>: '',
+    <%- input -%>Status: 'default',
+    <%- input -%>Message: '',
 <% } -%>
   }
 

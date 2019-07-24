@@ -6,6 +6,12 @@ import <%= componentName %> from '.'
 storiesOf('<%= componentName %> page', module)
   .add('default', () => (
     <<%= componentName %>
+<% for (const input of inputs) { -%>
+      <%- input -%>="<%- input -%> bla"
+      <%- input -%>Status="default"
+      <%- input -%>Message="message"
+      <%= helpers.getInputCallbackName(input) %>={action('<%= helpers.getInputCallbackName(input) %>')}
+<% } -%>
 <% for (const action of actions) { -%>
       <%= action %>={action('<%= action %>')}
 <% } -%>
