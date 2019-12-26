@@ -1,5 +1,8 @@
 #!/usr/bin/expect
 
+spawn rm -rf src/
+interact
+
 spawn yo rn-caos
 
 expect "? Your screen/container name:"
@@ -14,4 +17,3 @@ expect "? List button actions:"
 send "onLogin,onBack,onForgotPassword\n"
 
 interact
-echo "  THIS IS THE END! - ADELE"
