@@ -2,14 +2,14 @@ var helpers = require('./helpers')
 var Generator = require('yeoman-generator')
 
 const CONTAINER_FILES = [
-  'index.js',
+  'index.tsx',
   'index.stories.js',
   'index.test.js',
   'styles.js'
 ]
 
 const SCREEN_FILES = [
-  'index.js'
+  'index.tsx'
 ]
 
 module.exports = class extends Generator {
