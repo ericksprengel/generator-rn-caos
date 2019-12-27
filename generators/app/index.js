@@ -2,6 +2,7 @@ var helpers = require('./helpers')
 var Generator = require('yeoman-generator')
 
 const CONTAINER_FILES = [
+  'componentStates.tsx',
   'index.tsx',
   'index.stories.js',
   'index.test.js',

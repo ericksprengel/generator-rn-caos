@@ -4,22 +4,9 @@ import { shallow } from 'enzyme'
 import <%= componentName %> from '.'
 
 describe('<%= componentName %> container', () => {
-  test('renders correctly', () => {
-    const tree = renderer.create(
-      <<%= componentName %>
-<% for (const input of inputs) { -%>
-        <%- input -%>="<%- input -%> bla"
-        <%- input -%>Status="default"
-        <%- input -%>Message="message"
-        <%= helpers.getInputCallbackName(input) %>={() => null}
-<% } -%>
-<% for (const action of actions) { -%>
-        <%= action %>={() => null}
-<% } -%>
-      />
-    ).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+  testSnapshots(
+    states
+  )
 
 <% for (const action of actions) { %>
   test('<%= action %> should be called', () => {
