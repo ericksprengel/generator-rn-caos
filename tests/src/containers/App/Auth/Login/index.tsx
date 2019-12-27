@@ -6,12 +6,28 @@ import {
   Text, FormInput,
 } from 'jadd-components'
 import {
+  Text,
+} 'src/components'
+import {
   Button,
 } from 'jadd-components/components/future'
-import PropTypes from 'prop-types'
 import styles from './styles'
 
-const Login = ({
+export interface Props {
+  email?: string;
+  emailStatus?: 'default' | 'success' | 'error';
+  emailMessage?: string;
+  onChangeEmail: (email: string) => void;
+  password?: string;
+  passwordStatus?: 'default' | 'success' | 'error';
+  passwordMessage?: string;
+  onChangePassword: (password: string) => void;
+  onLogin: () => void;
+  onBack: () => void;
+  onForgotPassword: () => void;
+}
+
+const Login: React.FC<Props> = ({
   email,
   emailStatus,
   emailMessage,
@@ -23,7 +39,7 @@ const Login = ({
   onLogin,
   onBack,
   onForgotPassword,
-}) => (
+}: Props) => (
   <View style={styles.container}>
     <Text>Login</Text>
     <FormInput
@@ -61,28 +77,5 @@ const Login = ({
     />
   </View>
 )
-
-Login.defaultProps = {
-  email: '',
-  emailStatus: 'default',
-  emailMessage: '',
-  password: '',
-  passwordStatus: 'default',
-  passwordMessage: '',
-}
-
-Login.propTypes = {
-  email: PropTypes.string,
-  emailStatus: FormInput.propTypes.status,
-  emailMessage: PropTypes.string,
-  onChangeEmail: PropTypes.func.isRequired,
-  password: PropTypes.string,
-  passwordStatus: FormInput.propTypes.status,
-  passwordMessage: PropTypes.string,
-  onChangePassword: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
-  onBack: PropTypes.func.isRequired,
-  onForgotPassword: PropTypes.func.isRequired,
-}
 
 export default Login

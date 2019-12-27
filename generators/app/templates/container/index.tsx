@@ -6,12 +6,26 @@ import {
   Text, FormInput,
 } from 'jadd-components'
 import {
+  Text,
+} 'src/components'
+import {
   Button,
 } from 'jadd-components/components/future'
-import PropTypes from 'prop-types'
 import styles from './styles'
 
-const <%= componentName %> = ({
+export interface Props {
+<% for (const input of inputs) { -%>
+  <%- input -%>?: string;
+  <%- input -%>Status?: 'default' | 'success' | 'error';
+  <%- input -%>Message?: string;
+  <%= helpers.getInputCallbackName(input) %>: (<%- input -%>: string) => void;
+<% } -%>
+<%- actions.map(
+  (action) => '  ' + action + ': () => void;\n').join('')
+-%>
+}
+
+const <%= componentName %>: React.FC<Props> = ({
 <% for (const input of inputs) { -%>
   <%- input -%>,
   <%- input -%>Status,
@@ -19,7 +33,7 @@ const <%= componentName %> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-}) => (
+}: Props) => (
   <View style={styles.container}>
     <Text><%= componentName %></Text>
 <% for (const input of inputs) { -%>
@@ -42,25 +56,5 @@ const <%= componentName %> = ({
 <% } -%>
   </View>
 )
-
-<%= componentName %>.defaultProps = {
-<% for (const input of inputs) { -%>
-  <%- input -%>: '',
-  <%- input -%>Status: 'default',
-  <%- input -%>Message: '',
-<% } -%>
-}
-
-<%= componentName %>.propTypes = {
-<% for (const input of inputs) { -%>
-  <%- input -%>: PropTypes.string,
-  <%- input -%>Status: FormInput.propTypes.status,
-  <%- input -%>Message: PropTypes.string,
-  <%= helpers.getInputCallbackName(input) %>: PropTypes.func.isRequired,
-<% } -%>
-<% for (const action of actions) { -%>
-  <%- action -%>: PropTypes.func.isRequired,
-<% } -%>
-}
 
 export default <%= componentName %>
