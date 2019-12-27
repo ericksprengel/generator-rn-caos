@@ -3,7 +3,7 @@ import {
   View,
 } from 'react-native'
 import {
-  Text, FormInput,
+  FormInput,
 } from 'jadd-components'
 import {
   Text,
