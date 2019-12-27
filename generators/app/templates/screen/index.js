@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NavigationProp } from 'react-navigation'
+import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 
