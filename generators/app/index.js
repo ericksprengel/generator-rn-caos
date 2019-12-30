@@ -3,9 +3,10 @@ var Generator = require('yeoman-generator')
 
 const CONTAINER_FILES = [
   'index.tsx',
-  'index.stories.js',
-  'index.test.js',
-  'styles.js'
+  'styles.js',
+  'tests/componentStates.tsx',
+  'tests/index.stories.js',
+  'tests/index.test.js'
 ]
 
 const SCREEN_FILES = [

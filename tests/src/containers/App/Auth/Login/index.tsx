@@ -3,11 +3,11 @@ import {
   View,
 } from 'react-native'
 import {
-  Text, FormInput,
+  FormInput,
 } from 'jadd-components'
 import {
   Text,
-} 'src/components'
+} from 'src/components'
 import {
   Button,
 } from 'jadd-components/components/future'

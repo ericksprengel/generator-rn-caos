@@ -7,7 +7,7 @@ import {
 } from 'jadd-components'
 import {
   Text,
-} 'src/components'
+} from 'src/components'
 import {
   Button,
 } from 'jadd-components/components/future'
