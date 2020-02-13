@@ -1,6 +1,6 @@
 {
   "name": "generator-rn-caos",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Native - CAOS (Coding An Organized Software)",
   "files": [
     "generators"
@@ -21,8 +21,8 @@
     "url": "https://github.com/ericksprengel"
   },
   "repository": {
-      "type": "git",
-      "url": "git@github.com:ericksprengel/generator-rn-caos.git"
+    "type": "git",
+    "url": "git@github.com:ericksprengel/generator-rn-caos.git"
   },
   "license": "MIT",
   "dependencies": {
