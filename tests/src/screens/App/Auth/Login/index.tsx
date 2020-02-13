@@ -6,11 +6,11 @@ import LoginContainer from 'src/containers/App/Auth/Login'
 
 const LOG_TAG = 'App/Auth/Login'
 
-export interface Props {
+export interface LoginScreenProps {
   navigation: NavigationStackProp;
 }
 
-class LoginScreen extends Component<Props> {
+class LoginScreen extends Component<LoginScreenProps> {
   state = {
     email: '',
     emailStatus: 'default',

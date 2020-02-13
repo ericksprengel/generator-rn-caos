@@ -6,11 +6,11 @@ import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<
 
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
-export interface Props {
+export interface <%= componentName %>ScreenProps {
   navigation: NavigationStackProp;
 }
 
-class <%= componentName %>Screen extends Component<Props> {
+class <%= componentName %>Screen extends Component<<%= componentName %>ScreenProps> {
   state = {
 <% for (const input of inputs) { -%>
     <%- input -%>: '',
