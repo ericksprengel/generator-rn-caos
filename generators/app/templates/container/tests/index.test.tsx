@@ -4,11 +4,11 @@ import testSnapshots from 'src/test/helpers/testSnapshots'
 import * as states from './componentStates'
 import <%= componentName %> from '..'
 
-describe('<%= componentName %> container', () => {
+describe('<%= componentName %> container', (): void => {
   testSnapshots(states)
 
 <% for (const action of actions) { %>
-  test('<%= action %> should be called', () => {
+  test('<%= action %> should be called', (): void => {
     const <%= action %> = jest.fn()
     const actionMessage = '<%= action %>'
 
@@ -18,10 +18,10 @@ describe('<%= componentName %> container', () => {
         <%- input -%>="<%- input -%> bla"
         <%- input -%>Status="default"
         <%- input -%>Message="message"
-        <%= helpers.getInputCallbackName(input) %>={() => null}
+        <%= helpers.getInputCallbackName(input) %>={(): void => null}
 <% } -%>
 <% for (const actionI of actions) { -%>
-        <%= actionI %>={<%- actionI === action ? actionI : '() => null' %>}
+        <%= actionI %>={<%- actionI === action ? actionI : '(): void => null' %>}
 <% } -%>
       />
     )

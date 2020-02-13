@@ -13,7 +13,7 @@ import {
 } from 'jadd-components/components/future'
 import styles from './styles'
 
-export interface Props {
+export interface <%= componentName %>Props {
 <% for (const input of inputs) { -%>
   <%- input -%>?: string;
   <%- input -%>Status?: 'default' | 'success' | 'error';
@@ -25,7 +25,7 @@ export interface Props {
 -%>
 }
 
-const <%= componentName %>: React.FC<Props> = ({
+const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
 <% for (const input of inputs) { -%>
   <%- input -%>,
   <%- input -%>Status,
@@ -33,7 +33,7 @@ const <%= componentName %>: React.FC<Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-}: Props) => (
+}: <%= componentName %>Props) => (
   <View style={styles.container}>
     <Text><%= componentName %></Text>
 <% for (const input of inputs) { -%>

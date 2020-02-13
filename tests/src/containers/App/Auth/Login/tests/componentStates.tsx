@@ -2,19 +2,19 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import Login from '..'
 
-const Default = () => (
+const Default: React.FC = () => (
   <Login
     email="email bla"
     emailStatus="default"
     emailMessage="message"
-    onChangeEmail={action('onChangeEmail')}
+    onChangeEmail={(): void => action('onChangeEmail')()}
     password="password bla"
     passwordStatus="default"
     passwordMessage="message"
-    onChangePassword={action('onChangePassword')}
-    onLogin={action('onLogin')}
-    onBack={action('onBack')}
-    onForgotPassword={action('onForgotPassword')}
+    onChangePassword={(): void => action('onChangePassword')()}
+    onLogin={(): void => action('onLogin')()}
+    onBack={(): void => action('onBack')()}
+    onForgotPassword={(): void => action('onForgotPassword')()}
   />
 )
 

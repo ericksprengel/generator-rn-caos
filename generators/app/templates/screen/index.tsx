@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { NavigationProp } from 'react-navigation'
+import { NavigationStackProp } from 'react-navigation-stack'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
-class <%= componentName %>Screen extends Component {
+export interface <%= componentName %>ScreenProps {
+  navigation: NavigationStackProp;
+}
+
+class <%= componentName %>Screen extends Component<<%= componentName %>ScreenProps> {
   state = {
 <% for (const input of inputs) { -%>
     <%- input -%>: '',
@@ -17,7 +20,7 @@ class <%= componentName %>Screen extends Component {
   }
 
 <% for (const input of inputs) { -%>
-  <%= helpers.getInputCallbackName(input) %> = (<%= input %>) => {
+  <%= helpers.getInputCallbackName(input) %> = (<%= input %>): void => {
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= input %> NOT IMPLEMENTED')
     this.setState({
       <%= input %>,
@@ -27,12 +30,12 @@ class <%= componentName %>Screen extends Component {
 <% } -%>
 
 <% for (const action of actions) { -%>
-  <%= helpers.getHandleActionName(action) %> = () => {
+  <%= helpers.getHandleActionName(action) %> = (): void => {
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= action %> NOT IMPLEMENTED')
   }
 
 <% } -%>
-  render () {
+  render (): React.ReactNode {
     const {
 <% for (const input of inputs) { -%>
       <%- input -%>,
@@ -54,10 +57,6 @@ class <%= componentName %>Screen extends Component {
       />
     )
   }
-}
-
-<%= componentName %>Screen.propTypes = {
-  navigation: PropTypes.shape(NavigationProp).isRequired,
 }
 
 export default <%= componentName %>Screen

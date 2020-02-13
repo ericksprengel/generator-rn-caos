@@ -13,7 +13,7 @@ import {
 } from 'jadd-components/components/future'
 import styles from './styles'
 
-export interface Props {
+export interface LoginProps {
   email?: string;
   emailStatus?: 'default' | 'success' | 'error';
   emailMessage?: string;
@@ -27,7 +27,7 @@ export interface Props {
   onForgotPassword: () => void;
 }
 
-const Login: React.FC<Props> = ({
+const Login: React.FC<LoginProps> = ({
   email,
   emailStatus,
   emailMessage,
@@ -39,7 +39,7 @@ const Login: React.FC<Props> = ({
   onLogin,
   onBack,
   onForgotPassword,
-}: Props) => (
+}: LoginProps) => (
   <View style={styles.container}>
     <Text>Login</Text>
     <FormInput

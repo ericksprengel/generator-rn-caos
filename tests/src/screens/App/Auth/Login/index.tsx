@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { NavigationProp } from 'react-navigation'
+import { NavigationStackProp } from 'react-navigation-stack'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import LoginContainer from 'src/containers/App/Auth/Login'
 
 const LOG_TAG = 'App/Auth/Login'
 
-class LoginScreen extends Component {
+export interface LoginScreenProps {
+  navigation: NavigationStackProp;
+}
+
+class LoginScreen extends Component<LoginScreenProps> {
   state = {
     email: '',
     emailStatus: 'default',
@@ -17,14 +20,14 @@ class LoginScreen extends Component {
     passwordMessage: '',
   }
 
-  onChangeEmail = (email) => {
+  onChangeEmail = (email): void => {
     log.e(LOG_TAG, 'TODO: Login/email NOT IMPLEMENTED')
     this.setState({
       email,
     })
   }
 
-  onChangePassword = (password) => {
+  onChangePassword = (password): void => {
     log.e(LOG_TAG, 'TODO: Login/password NOT IMPLEMENTED')
     this.setState({
       password,
@@ -32,19 +35,19 @@ class LoginScreen extends Component {
   }
 
 
-  handleOnLogin = () => {
+  handleOnLogin = (): void => {
     log.e(LOG_TAG, 'TODO: Login/onLogin NOT IMPLEMENTED')
   }
 
-  handleOnBack = () => {
+  handleOnBack = (): void => {
     log.e(LOG_TAG, 'TODO: Login/onBack NOT IMPLEMENTED')
   }
 
-  handleOnForgotPassword = () => {
+  handleOnForgotPassword = (): void => {
     log.e(LOG_TAG, 'TODO: Login/onForgotPassword NOT IMPLEMENTED')
   }
 
-  render () {
+  render (): React.ReactNode {
     const {
       email,
       emailStatus,
@@ -69,10 +72,6 @@ class LoginScreen extends Component {
       />
     )
   }
-}
-
-LoginScreen.propTypes = {
-  navigation: PropTypes.shape(NavigationProp).isRequired,
 }
 
 export default LoginScreen
