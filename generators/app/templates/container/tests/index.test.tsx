@@ -18,10 +18,10 @@ describe('<%= componentName %> container', (): void => {
         <%- input -%>="<%- input -%> bla"
         <%- input -%>Status="default"
         <%- input -%>Message="message"
-        <%= helpers.getInputCallbackName(input) %>={(): void => null}
+        <%= helpers.getInputCallbackName(input) %>={(): void => undefined}
 <% } -%>
 <% for (const actionI of actions) { -%>
-        <%= actionI %>={<%- actionI === action ? actionI : '(): void => null' %>}
+        <%= actionI %>={<%- actionI === action ? actionI : '(): void => undefined' %>}
 <% } -%>
       />
     )

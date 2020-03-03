@@ -17,14 +17,14 @@ describe('Login container', (): void => {
         email="email bla"
         emailStatus="default"
         emailMessage="message"
-        onChangeEmail={(): void => null}
+        onChangeEmail={(): void => undefined}
         password="password bla"
         passwordStatus="default"
         passwordMessage="message"
-        onChangePassword={(): void => null}
+        onChangePassword={(): void => undefined}
         onLogin={onLogin}
-        onBack={(): void => null}
-        onForgotPassword={(): void => null}
+        onBack={(): void => undefined}
+        onForgotPassword={(): void => undefined}
       />
     )
     wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
@@ -41,14 +41,14 @@ describe('Login container', (): void => {
         email="email bla"
         emailStatus="default"
         emailMessage="message"
-        onChangeEmail={(): void => null}
+        onChangeEmail={(): void => undefined}
         password="password bla"
         passwordStatus="default"
         passwordMessage="message"
-        onChangePassword={(): void => null}
-        onLogin={(): void => null}
+        onChangePassword={(): void => undefined}
+        onLogin={(): void => undefined}
         onBack={onBack}
-        onForgotPassword={(): void => null}
+        onForgotPassword={(): void => undefined}
       />
     )
     wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
@@ -65,13 +65,13 @@ describe('Login container', (): void => {
         email="email bla"
         emailStatus="default"
         emailMessage="message"
-        onChangeEmail={(): void => null}
+        onChangeEmail={(): void => undefined}
         password="password bla"
         passwordStatus="default"
         passwordMessage="message"
-        onChangePassword={(): void => null}
-        onLogin={(): void => null}
-        onBack={(): void => null}
+        onChangePassword={(): void => undefined}
+        onLogin={(): void => undefined}
+        onBack={(): void => undefined}
         onForgotPassword={onForgotPassword}
       />
     )
