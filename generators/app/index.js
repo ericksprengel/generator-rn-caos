@@ -58,6 +58,7 @@ module.exports = class extends Generator {
   _writeContainer () {
     const componentPath = this.answers.path
     const componentName = this.answers.name
+    const states = ['default', 'loading', 'error']
     const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
     const actions = this.answers.actions ? this.answers.actions.split(',') : []
 
@@ -68,6 +69,7 @@ module.exports = class extends Generator {
         {
           componentName,
           componentPath,
+          states,
           inputs,
           actions,
           helpers
@@ -79,6 +81,7 @@ module.exports = class extends Generator {
   _writeScreen () {
     const componentPath = this.answers.path
     const componentName = this.answers.name
+    const states = ['default', 'loading', 'error']
     const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
     const actions = this.answers.actions ? this.answers.actions.split(',') : []
 
@@ -89,6 +92,7 @@ module.exports = class extends Generator {
         {
           componentName,
           componentPath,
+          states,
           inputs,
           actions,
           helpers

@@ -1,13 +1,22 @@
 
+const toUpperCaseFirstLetter = function (text) {
+  return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
+const getStateComponentNameForStorybook = function (state) {
+  return toUpperCaseFirstLetter(state)
+}
+
 const getHandleActionName = function (action) {
-  return 'handle' + action.charAt(0).toUpperCase() + action.slice(1)
+  return 'handle' + toUpperCaseFirstLetter(action)
 }
 
 const getInputCallbackName = function (inputName) {
-  return 'onChange' + inputName.charAt(0).toUpperCase() + inputName.slice(1)
+  return 'onChange' + toUpperCaseFirstLetter(inputName)
 }
 
 module.exports = {
+  getStateComponentNameForStorybook,
   getHandleActionName,
   getInputCallbackName
 }

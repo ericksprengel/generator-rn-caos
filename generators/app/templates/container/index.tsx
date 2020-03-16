@@ -11,10 +11,23 @@ import {
 } from 'src/components'
 import styles from './styles'
 
+export enum FormInputStatus {
+  default = 'default',
+  success = 'success',
+  error = 'error',
+}
+
+export enum State {
+  default = 'default',
+  loading = 'loading',
+  error = 'error',
+}
+
 export interface <%= componentName %>Props {
+  state: State;
 <% for (const input of inputs) { -%>
   <%- input -%>?: string;
-  <%- input -%>Status?: 'default' | 'success' | 'error';
+  <%- input -%>Status?: FormInputStatus;
   <%- input -%>Message?: string;
   <%= helpers.getInputCallbackName(input) %>: (<%- input -%>: string) => void;
 <% } -%>
@@ -24,6 +37,7 @@ export interface <%= componentName %>Props {
 }
 
 const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
+  state,
 <% for (const input of inputs) { -%>
   <%- input -%>,
   <%- input -%>Status,
@@ -34,6 +48,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
 }: <%= componentName %>Props) => (
   <View style={styles.container}>
     <Text><%= componentName %></Text>
+    <Text>State: {state}</Text>
 <% for (const input of inputs) { -%>
     <FormInput
       onChangeText={<%= helpers.getInputCallbackName(input) %>}
@@ -49,6 +64,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
     <Button
       title="<%= action %>"
       style={styles.button}
+      loading={state === State.loading}
       onPress={<%= action %>}
     />
 <% } -%>
