@@ -6,11 +6,9 @@ import {
   FormInput,
 } from 'jadd-components'
 import {
+  Button,
   Text,
 } from 'src/components'
-import {
-  Button,
-} from 'jadd-components/components/future'
 import styles from './styles'
 
 export interface <%= componentName %>Props {
