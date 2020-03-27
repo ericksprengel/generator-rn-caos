@@ -1,8 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
 import * as states from './componentStates'
-import Login from '..'
+import Login, { State } from '..'
 
 describe('Login container', (): void => {
   testSnapshots(states)
@@ -12,8 +12,9 @@ describe('Login container', (): void => {
     const onLogin = jest.fn()
     const actionMessage = 'onLogin'
 
-    const wrapper = shallow(
+    const container = create(
       <Login
+        state={State.default}
         email="email bla"
         emailStatus="default"
         emailMessage="message"
@@ -26,8 +27,11 @@ describe('Login container', (): void => {
         onBack={(): void => undefined}
         onForgotPassword={(): void => undefined}
       />
-    )
-    wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
+    ).root
+
+    container.findByProps({
+      title: actionMessage,
+    }).props.onPress()
 
     expect(onLogin).toBeCalled()
   })
@@ -36,8 +40,9 @@ describe('Login container', (): void => {
     const onBack = jest.fn()
     const actionMessage = 'onBack'
 
-    const wrapper = shallow(
+    const container = create(
       <Login
+        state={State.default}
         email="email bla"
         emailStatus="default"
         emailMessage="message"
@@ -50,8 +55,11 @@ describe('Login container', (): void => {
         onBack={onBack}
         onForgotPassword={(): void => undefined}
       />
-    )
-    wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
+    ).root
+
+    container.findByProps({
+      title: actionMessage,
+    }).props.onPress()
 
     expect(onBack).toBeCalled()
   })
@@ -60,8 +68,9 @@ describe('Login container', (): void => {
     const onForgotPassword = jest.fn()
     const actionMessage = 'onForgotPassword'
 
-    const wrapper = shallow(
+    const container = create(
       <Login
+        state={State.default}
         email="email bla"
         emailStatus="default"
         emailMessage="message"
@@ -74,8 +83,11 @@ describe('Login container', (): void => {
         onBack={(): void => undefined}
         onForgotPassword={onForgotPassword}
       />
-    )
-    wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
+    ).root
+
+    container.findByProps({
+      title: actionMessage,
+    }).props.onPress()
 
     expect(onForgotPassword).toBeCalled()
   })
