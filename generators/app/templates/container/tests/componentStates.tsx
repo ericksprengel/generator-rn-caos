@@ -1,12 +1,14 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
-import <%= componentName %> from '..'
+import <%= componentName %>, { FormInputStatus, State } from '..'
 
-const Default: React.FC = () => (
+<% for (const state of states) { -%>
+const <%- helpers.getStateComponentNameForStorybook(state) -%>: React.FC = () => (
   <<%= componentName %>
+    state={State.<%- state -%>}
 <% for (const input of inputs) { -%>
     <%- input -%>="<%- input -%> bla"
-    <%- input -%>Status="default"
+    <%- input -%>Status={FormInputStatus.default}
     <%- input -%>Message="message"
     <%= helpers.getInputCallbackName(input) %>={(): void => action('<%= helpers.getInputCallbackName(input) %>')()}
 <% } -%>
@@ -15,7 +17,10 @@ const Default: React.FC = () => (
 <% } -%>
   />
 )
+<% } -%>
 
 export {
-  Default,
+<% for (const state of states) { -%>
+  <%- helpers.getStateComponentNameForStorybook(state) -%>,
+<% } -%>
 }

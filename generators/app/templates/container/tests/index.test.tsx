@@ -1,8 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
 import * as states from './componentStates'
-import <%= componentName %> from '..'
+import <%= componentName %>, { State } from '..'
 
 describe('<%= componentName %> container', (): void => {
   testSnapshots(states)
@@ -12,8 +12,9 @@ describe('<%= componentName %> container', (): void => {
     const <%= action %> = jest.fn()
     const actionMessage = '<%= action %>'
 
-    const wrapper = shallow(
+    const container = create(
       <<%= componentName %>
+        state={State.default}
 <% for (const input of inputs) { -%>
         <%- input -%>="<%- input -%> bla"
         <%- input -%>Status="default"
@@ -24,8 +25,11 @@ describe('<%= componentName %> container', (): void => {
         <%= actionI %>={<%- actionI === action ? actionI : '(): void => undefined' %>}
 <% } -%>
       />
-    )
-    wrapper.find(`Button[title="${actionMessage}"]`).first().props().onPress()
+    ).root
+
+    container.findByProps({
+      title: actionMessage,
+    }).props.onPress()
 
     expect(<%= action %>).toBeCalled()
   })

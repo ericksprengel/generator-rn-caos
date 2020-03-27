@@ -6,20 +6,31 @@ import {
   FormInput,
 } from 'jadd-components'
 import {
+  Button,
   Text,
 } from 'src/components'
-import {
-  Button,
-} from 'jadd-components/components/future'
 import styles from './styles'
 
+export enum FormInputStatus {
+  default = 'default',
+  success = 'success',
+  error = 'error',
+}
+
+export enum State {
+  default = 'default',
+  loading = 'loading',
+  error = 'error',
+}
+
 export interface LoginProps {
+  state: State;
   email?: string;
-  emailStatus?: 'default' | 'success' | 'error';
+  emailStatus?: FormInputStatus;
   emailMessage?: string;
   onChangeEmail: (email: string) => void;
   password?: string;
-  passwordStatus?: 'default' | 'success' | 'error';
+  passwordStatus?: FormInputStatus;
   passwordMessage?: string;
   onChangePassword: (password: string) => void;
   onLogin: () => void;
@@ -28,6 +39,7 @@ export interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({
+  state,
   email,
   emailStatus,
   emailMessage,
@@ -42,6 +54,7 @@ const Login: React.FC<LoginProps> = ({
 }: LoginProps) => (
   <View style={styles.container}>
     <Text>Login</Text>
+    <Text>State: {state}</Text>
     <FormInput
       onChangeText={onChangeEmail}
       value={email}
@@ -63,16 +76,19 @@ const Login: React.FC<LoginProps> = ({
     <Button
       title="onLogin"
       style={styles.button}
+      loading={state === State.loading}
       onPress={onLogin}
     />
     <Button
       title="onBack"
       style={styles.button}
+      loading={state === State.loading}
       onPress={onBack}
     />
     <Button
       title="onForgotPassword"
       style={styles.button}
+      loading={state === State.loading}
       onPress={onForgotPassword}
     />
   </View>

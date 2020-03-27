@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Util } from 'jadd-components'
-
-const { scale } = Util.style
+import { scale } from 'src/styleguide/v5/scaling'
 
 const styles = StyleSheet.create({
   container: {
