@@ -1,77 +1,79 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavigationStackProp } from 'react-navigation-stack'
+import * as R from 'ramda'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import LoginContainer from 'src/containers/App/Auth/Login'
+import useForm from 'src/utils/hooks/useForm'
+import validators from 'src/utils/validators'
 
 const LOG_TAG = 'App/Auth/Login'
 
-export interface LoginScreenProps {
-  navigation: NavigationStackProp;
+export interface NavigationParams {
 }
 
-class LoginScreen extends Component<LoginScreenProps> {
-  state = {
-    email: '',
-    emailStatus: 'default',
-    emailMessage: '',
-    password: '',
-    passwordStatus: 'default',
-    passwordMessage: '',
-  }
+export interface LoginScreenProps {
+  navigation: NavigationStackProp<NavigationParams>;
+}
 
-  onChangeEmail = (email): void => {
-    log.e(LOG_TAG, 'TODO: Login/email NOT IMPLEMENTED')
-    this.setState({
-      email,
-    })
-  }
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+  const {
+    formData, formErrors, onChangeFormInput, isFormValid
+  } = useForm({
+    initialData: {
+      email: '',
+      password: '',
+    },
+    validators: {
+      email: [validators.required],
+      password: [validators.required],
+    },
+    formatters: {
+      email: R.identity,
+      password: R.identity,
+    },
+    initialErrors: {
+      email: null,
+      password: null,
+    },
+  })
 
-  onChangePassword = (password): void => {
-    log.e(LOG_TAG, 'TODO: Login/password NOT IMPLEMENTED')
-    this.setState({
-      password,
-    })
-  }
-
-
-  handleOnLogin = (): void => {
+  const handleOnLogin = (): void => {
     log.e(LOG_TAG, 'TODO: Login/onLogin NOT IMPLEMENTED')
+    if (isFormValid()) {
+      navigation.navigate(routes.App.itself)
+    }
   }
 
-  handleOnBack = (): void => {
+  const handleOnBack = (): void => {
     log.e(LOG_TAG, 'TODO: Login/onBack NOT IMPLEMENTED')
+    if (isFormValid()) {
+      navigation.navigate(routes.App.itself)
+    }
   }
 
-  handleOnForgotPassword = (): void => {
+  const handleOnForgotPassword = (): void => {
     log.e(LOG_TAG, 'TODO: Login/onForgotPassword NOT IMPLEMENTED')
+    if (isFormValid()) {
+      navigation.navigate(routes.App.itself)
+    }
   }
 
-  render (): React.ReactNode {
-    const {
-      email,
-      emailStatus,
-      emailMessage,
-      password,
-      passwordStatus,
-      passwordMessage,
-    } = this.state
-    return (
-      <LoginContainer
-        email={email}
-        emailStatus={emailStatus}
-        emailMessage={emailMessage}
-        onChangeEmail={this.onChangeEmail}
-        password={password}
-        passwordStatus={passwordStatus}
-        passwordMessage={passwordMessage}
-        onChangePassword={this.onChangePassword}
-        onLogin={this.handleOnLogin}
-        onBack={this.handleOnBack}
-        onForgotPassword={this.handleOnForgotPassword}
-      />
-    )
-  }
+  return (
+    <LoginContainer
+      email={formData.email}
+      emailStatus={formErrors.email ? 'error' : 'default'}
+      emailMessage={formErrors.email && formErrors.email[0]}
+      onChangeEmail={onChangeFormInput('email')}
+      password={formData.password}
+      passwordStatus={formErrors.password ? 'error' : 'default'}
+      passwordMessage={formErrors.password && formErrors.password[0]}
+      onChangePassword={onChangeFormInput('password')}
+      onLogin={handleOnLogin}
+      onBack={handleOnBack}
+      onForgotPassword={handleOnForgotPassword}
+    />
+  )
 }
 
 export default LoginScreen

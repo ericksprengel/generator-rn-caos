@@ -10,7 +10,8 @@ const CONTAINER_FILES = [
 ]
 
 const SCREEN_FILES = [
-  'index.tsx'
+  'index.tsx',
+  'index.test.tsx'
 ]
 
 module.exports = class extends Generator {
