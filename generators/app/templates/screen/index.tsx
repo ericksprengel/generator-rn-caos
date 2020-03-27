@@ -1,62 +1,69 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavigationStackProp } from 'react-navigation-stack'
+import * as R from 'ramda'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
+import useForm from 'src/utils/hooks/useForm'
+import validators from 'src/utils/validators'
 
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
-export interface <%= componentName %>ScreenProps {
-  navigation: NavigationStackProp;
+export interface NavigationParams {
 }
 
-class <%= componentName %>Screen extends Component<<%= componentName %>ScreenProps> {
-  state = {
-<% for (const input of inputs) { -%>
-    <%- input -%>: '',
-    <%- input -%>Status: 'default',
-    <%- input -%>Message: '',
-<% } -%>
-  }
+export interface <%= componentName %>ScreenProps {
+  navigation: NavigationStackProp<NavigationParams>;
+}
 
+const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({ navigation }) => {
+  const {
+    formData, formErrors, onChangeFormInput, isFormValid
+  } = useForm({
+    initialData: {
 <% for (const input of inputs) { -%>
-  <%= helpers.getInputCallbackName(input) %> = (<%= input %>): void => {
-    log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= input %> NOT IMPLEMENTED')
-    this.setState({
-      <%= input %>,
-    })
-  }
-
+      <%- input -%>: '',
 <% } -%>
+    },
+    validators: {
+<% for (const input of inputs) { -%>
+      <%- input -%>: [validators.required],
+<% } -%>
+    },
+    formatters: {
+<% for (const input of inputs) { -%>
+      <%- input -%>: R.identity,
+<% } -%>
+    },
+    initialErrors: {
+<% for (const input of inputs) { -%>
+      <%- input -%>: null,
+<% } -%>
+    },
+  })
 
 <% for (const action of actions) { -%>
-  <%= helpers.getHandleActionName(action) %> = (): void => {
+  const <%= helpers.getHandleActionName(action) %> = (): void => {
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= action %> NOT IMPLEMENTED')
+    if (isFormValid()) {
+      navigation.navigate(routes.App.itself)
+    }
   }
 
 <% } -%>
-  render (): React.ReactNode {
-    const {
+  return (
+    <<%= componentName %>Container
 <% for (const input of inputs) { -%>
-      <%- input -%>,
-      <%- input -%>Status,
-      <%- input -%>Message,
-<% } -%>
-    } = this.state
-    return (
-      <<%= componentName %>Container
-<% for (const input of inputs) { -%>
-        <%- input -%>={<%- input -%>}
-        <%- input -%>Status={<%- input -%>Status}
-        <%- input -%>Message={<%- input -%>Message}
-        <%= helpers.getInputCallbackName(input) %>={this.<%= helpers.getInputCallbackName(input) %>}
+      <%- input -%>={formData.<%- input -%>}
+      <%- input -%>Status={formErrors.<%- input -%> ? 'error' : 'default'}
+      <%- input -%>Message={formErrors.<%- input -%> && formErrors.<%- input -%>[0]}
+      <%= helpers.getInputCallbackName(input) %>={onChangeFormInput('<%= input %>')}
 <% } -%>
 <% for (const action of actions) { -%>
-        <%= action %>={this.<%= helpers.getHandleActionName(action) %>}
+      <%= action %>={<%= helpers.getHandleActionName(action) %>}
 <% } -%>
-      />
-    )
-  }
+    />
+  )
 }
 
 export default <%= componentName %>Screen
