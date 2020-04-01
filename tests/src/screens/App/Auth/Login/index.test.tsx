@@ -2,7 +2,7 @@ import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
 import LoginScreen from '.'
 
-describe('login screen', () => {
+describe('loginScreen screen', () => {
   const navigationMock = {
     navigate: jest.fn()
   }
@@ -17,7 +17,7 @@ describe('login screen', () => {
     )!.root
   })
 
-  describe('when pressing the login button', () => {
+  describe('when pressing the onLogin button', () => {
     beforeEach(() => {
       const button = testInstance.findByProps({ title: 'onLogin' })
       act(() => {
@@ -28,8 +28,7 @@ describe('login screen', () => {
       expect(navigationMock.navigate).not.toHaveBeenCalled()
     })
   })
-
-  describe('when pressing the back button', () => {
+  describe('when pressing the onBack button', () => {
     beforeEach(() => {
       const button = testInstance.findByProps({ title: 'onBack' })
       act(() => {
@@ -40,22 +39,9 @@ describe('login screen', () => {
       expect(navigationMock.navigate).not.toHaveBeenCalled()
     })
   })
-
-  describe('when pressing the forgot password button', () => {
+  describe('when pressing the onForgotPassword button', () => {
     beforeEach(() => {
-      const button = testInstance.findByProps({ title: 'onBack' })
-      act(() => {
-        button.props.onPress()
-      })
-    })
-    test('should do something', () => {
-      expect(navigationMock.navigate).not.toHaveBeenCalled()
-    })
-  })
-
-  describe('when pressing the back button', () => {
-    beforeEach(() => {
-      const button = testInstance.findByProps({ title: 'onBack' })
+      const button = testInstance.findByProps({ title: 'onForgotPassword' })
       act(() => {
         button.props.onPress()
       })
@@ -77,7 +63,6 @@ describe('login screen', () => {
       expect(input.props.value).toBe('email')
     })
   })
-
   describe('when changing the password input', () => {
     let input
     beforeEach(() => {
