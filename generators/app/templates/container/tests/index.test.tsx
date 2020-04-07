@@ -1,6 +1,7 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
+import { Button } from 'src/components'
 import * as states from './componentStates'
 import <%= componentName %>, { State } from '..'
 
@@ -27,9 +28,11 @@ describe('<%= componentName %> container', (): void => {
       />
     ).root
 
-    container.findByProps({
-      title: actionMessage,
-    }).props.onPress()
+    container
+      .find(
+        (node) => node.type === Button && node.props.title === actionMessage,
+      )
+      .props.onPress()
 
     expect(<%= action %>).toBeCalled()
   })
