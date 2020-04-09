@@ -1,78 +1,71 @@
 import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
+import LoginContainer from 'src/containers/Auth/Login'
 import LoginScreen from '.'
 
 describe('loginScreen screen', () => {
   const navigationMock = {
     navigate: jest.fn()
   }
-  let testInstance: ReactTestInstance
+  let containerInstance: ReactTestInstance
   beforeEach(() => {
     navigationMock.navigate.mockClear()
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    testInstance = create(
+    containerInstance = create(
       <LoginScreen
         navigation={navigationMock}
       />
-    )!.root
+    ).root.findByType(LoginContainer)
   })
 
-  describe('when pressing the onLogin button', () => {
+  describe('when onLogin is called', () => {
     beforeEach(() => {
-      const button = testInstance.findByProps({ title: 'onLogin' })
       act(() => {
-        button.props.onPress()
+        containerInstance.props.onLogin()
       })
     })
-    test('should do something', () => {
+    test('TODO: should do something', () => {
       expect(navigationMock.navigate).not.toHaveBeenCalled()
     })
   })
-  describe('when pressing the onBack button', () => {
+  describe('when onBack is called', () => {
     beforeEach(() => {
-      const button = testInstance.findByProps({ title: 'onBack' })
       act(() => {
-        button.props.onPress()
+        containerInstance.props.onBack()
       })
     })
-    test('should do something', () => {
+    test('TODO: should do something', () => {
       expect(navigationMock.navigate).not.toHaveBeenCalled()
     })
   })
-  describe('when pressing the onForgotPassword button', () => {
+  describe('when onForgotPassword is called', () => {
     beforeEach(() => {
-      const button = testInstance.findByProps({ title: 'onForgotPassword' })
       act(() => {
-        button.props.onPress()
+        containerInstance.props.onForgotPassword()
       })
     })
-    test('should do something', () => {
+    test('TODO: should do something', () => {
       expect(navigationMock.navigate).not.toHaveBeenCalled()
     })
   })
 
   describe('when changing the email input', () => {
-    let input
     beforeEach(() => {
-      input = testInstance.findByProps({ label: 'email' })
       act(() => {
-        input.props.onChange('email')
+        containerInstance.props.onChangeEmail('email')
       })
     })
-    test('should do something', () => {
-      expect(input.props.value).toBe('email')
+    test('should update email value', () => {
+      expect(containerInstance.props.email).toBe('email')
     })
   })
   describe('when changing the password input', () => {
-    let input
     beforeEach(() => {
-      input = testInstance.findByProps({ label: 'password' })
       act(() => {
-        input.props.onChange('password')
+        containerInstance.props.onChangePassword('password')
       })
     })
-    test('should do something', () => {
-      expect(input.props.value).toBe('password')
+    test('should update password value', () => {
+      expect(containerInstance.props.password).toBe('password')
     })
   })
 })
