@@ -1,12 +1,16 @@
 import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
+import { NavigationStackProp } from 'react-navigation-stack'
+import { mock } from 'jest-mock-extended'
 import LoginContainer from 'src/containers/Auth/Login'
 import LoginScreen from '.'
 
 describe('loginScreen screen', () => {
-  const navigationMock = {
-    navigate: jest.fn()
-  }
+  const mockNavigate = jest.fn()
+  const navigationMock = mock<NavigationStackProp>({
+    navigate: mockNavigate,
+    pop: jest.fn(),
+  })
   let containerInstance: ReactTestInstance
   beforeEach(() => {
     navigationMock.navigate.mockClear()
@@ -24,7 +28,7 @@ describe('loginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(navigationMock.navigate).not.toHaveBeenCalled()
+      expect(mockNavigate).not.toHaveBeenCalled()
     })
   })
   describe('when onBack is called', () => {
@@ -34,7 +38,7 @@ describe('loginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(navigationMock.navigate).not.toHaveBeenCalled()
+      expect(mockNavigate).not.toHaveBeenCalled()
     })
   })
   describe('when onForgotPassword is called', () => {
@@ -44,7 +48,7 @@ describe('loginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(navigationMock.navigate).not.toHaveBeenCalled()
+      expect(mockNavigate).not.toHaveBeenCalled()
     })
   })
 

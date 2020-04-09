@@ -1,12 +1,16 @@
 import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
+import { NavigationStackProp } from 'react-navigation-stack'
+import { mock } from 'jest-mock-extended'
 import <%= componentName %>Container from 'src/containers/Auth/<%= componentName %>'
 import <%= componentName %>Screen from '.'
 
 describe('<%= componentName.toLowerCase() %>Screen screen', () => {
-  const navigationMock = {
-    navigate: jest.fn()
-  }
+  const mockNavigate = jest.fn()
+  const navigationMock = mock<NavigationStackProp>({
+    navigate: mockNavigate,
+    pop: jest.fn(),
+  })
   let containerInstance: ReactTestInstance
   beforeEach(() => {
     navigationMock.navigate.mockClear()
@@ -25,7 +29,7 @@ describe('<%= componentName.toLowerCase() %>Screen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(navigationMock.navigate).not.toHaveBeenCalled()
+      expect(mockNavigate).not.toHaveBeenCalled()
     })
   })
 <% } -%>
