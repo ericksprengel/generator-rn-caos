@@ -3,7 +3,7 @@ import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
 import { Button } from 'src/components'
 import * as states from './componentStates'
-import <%= componentName %>, { State } from '..'
+import <%= componentName %>, { FormInputStatus, State } from '..'
 
 describe('<%= componentName %> container', (): void => {
   testSnapshots(states)
@@ -18,7 +18,7 @@ describe('<%= componentName %> container', (): void => {
         state={State.default}
 <% for (const input of inputs) { -%>
         <%- input -%>="<%- input -%> bla"
-        <%- input -%>Status="default"
+        <%- input -%>Status={FormInputStatus.default}
         <%- input -%>Message="message"
         <%= helpers.getInputCallbackName(input) %>={(): void => undefined}
 <% } -%>

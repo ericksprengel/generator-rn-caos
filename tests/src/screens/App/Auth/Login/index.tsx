@@ -63,11 +63,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     <LoginContainer
       email={formData.email}
       emailStatus={formErrors.email ? 'error' : 'default'}
-      emailMessage={formErrors.email && formErrors.email[0]}
+      emailMessage={formErrors.email ? formErrors.email[0] : undefined}
       onChangeEmail={onChangeFormInput('email')}
       password={formData.password}
       passwordStatus={formErrors.password ? 'error' : 'default'}
-      passwordMessage={formErrors.password && formErrors.password[0]}
+      passwordMessage={formErrors.password ? formErrors.password[0] : undefined}
       onChangePassword={onChangeFormInput('password')}
       onLogin={handleOnLogin}
       onBack={handleOnBack}

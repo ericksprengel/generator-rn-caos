@@ -56,7 +56,7 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 <% for (const input of inputs) { -%>
       <%- input -%>={formData.<%- input -%>}
       <%- input -%>Status={formErrors.<%- input -%> ? 'error' : 'default'}
-      <%- input -%>Message={formErrors.<%- input -%> && formErrors.<%- input -%>[0]}
+      <%- input -%>Message={formErrors.<%- input -%> ? formErrors.<%- input -%>[0] : undefined}
       <%= helpers.getInputCallbackName(input) %>={onChangeFormInput('<%= input %>')}
 <% } -%>
 <% for (const action of actions) { -%>
