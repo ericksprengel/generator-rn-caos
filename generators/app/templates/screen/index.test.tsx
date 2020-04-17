@@ -13,7 +13,7 @@ describe('<%= componentName.toLowerCase() %>Screen screen', () => {
   })
   let containerInstance: ReactTestInstance
   beforeEach(() => {
-    navigationMock.navigate.mockClear()
+    mockNavigate.mockClear()
     containerInstance = create(
       <<%= componentName %>Screen
         navigation={navigationMock}

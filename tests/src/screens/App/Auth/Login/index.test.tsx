@@ -13,7 +13,7 @@ describe('loginScreen screen', () => {
   })
   let containerInstance: ReactTestInstance
   beforeEach(() => {
-    navigationMock.navigate.mockClear()
+    mockNavigate.mockClear()
     containerInstance = create(
       <LoginScreen
         navigation={navigationMock}

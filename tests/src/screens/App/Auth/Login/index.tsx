@@ -1,25 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationStackProp } from 'react-navigation-stack'
 import * as R from 'ramda'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
-import LoginContainer from 'src/containers/App/Auth/Login'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
+import LoginContainer, {
+  FormInputStatus,
+  State,
+} from 'src/containers/App/Auth/Login'
 
 const LOG_TAG = 'App/Auth/Login'
 
-export interface NavigationParams {
-}
+export interface NavigationParams {}
 
 export interface LoginScreenProps {
-  navigation: NavigationStackProp<NavigationParams>;
+  navigation: NavigationStackProp<NavigationParams>
 }
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-  const {
-    formData, formErrors, onChangeFormInput, isFormValid
-  } = useForm({
+const LoginScreen: React.FC<LoginScreenProps> = ({
+  navigation,
+}) => {
+  const [state, setState] = useState(State.default)
+  const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
       email: '',
       password: '',
@@ -61,12 +64,17 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   return (
     <LoginContainer
+      state={state}
       email={formData.email}
-      emailStatus={formErrors.email ? 'error' : 'default'}
+      emailStatus={
+        formErrors.email ? FormInputStatus.error : FormInputStatus.default
+      }
       emailMessage={formErrors.email ? formErrors.email[0] : undefined}
       onChangeEmail={onChangeFormInput('email')}
       password={formData.password}
-      passwordStatus={formErrors.password ? 'error' : 'default'}
+      passwordStatus={
+        formErrors.password ? FormInputStatus.error : FormInputStatus.default
+      }
       passwordMessage={formErrors.password ? formErrors.password[0] : undefined}
       onChangePassword={onChangeFormInput('password')}
       onLogin={handleOnLogin}
