@@ -1,8 +1,9 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
+import { Button } from 'src/components'
 import * as states from './componentStates'
-import Login, { State } from '..'
+import Login, { FormInputStatus, State } from '..'
 
 describe('Login container', (): void => {
   testSnapshots(states)
@@ -16,11 +17,11 @@ describe('Login container', (): void => {
       <Login
         state={State.default}
         email="email bla"
-        emailStatus="default"
+        emailStatus={FormInputStatus.default}
         emailMessage="message"
         onChangeEmail={(): void => undefined}
         password="password bla"
-        passwordStatus="default"
+        passwordStatus={FormInputStatus.default}
         passwordMessage="message"
         onChangePassword={(): void => undefined}
         onLogin={onLogin}
@@ -29,9 +30,11 @@ describe('Login container', (): void => {
       />
     ).root
 
-    container.findByProps({
-      title: actionMessage,
-    }).props.onPress()
+    container
+      .find(
+        (node) => node.type === Button && node.props.title === actionMessage,
+      )
+      .props.onPress()
 
     expect(onLogin).toBeCalled()
   })
@@ -44,11 +47,11 @@ describe('Login container', (): void => {
       <Login
         state={State.default}
         email="email bla"
-        emailStatus="default"
+        emailStatus={FormInputStatus.default}
         emailMessage="message"
         onChangeEmail={(): void => undefined}
         password="password bla"
-        passwordStatus="default"
+        passwordStatus={FormInputStatus.default}
         passwordMessage="message"
         onChangePassword={(): void => undefined}
         onLogin={(): void => undefined}
@@ -57,9 +60,11 @@ describe('Login container', (): void => {
       />
     ).root
 
-    container.findByProps({
-      title: actionMessage,
-    }).props.onPress()
+    container
+      .find(
+        (node) => node.type === Button && node.props.title === actionMessage,
+      )
+      .props.onPress()
 
     expect(onBack).toBeCalled()
   })
@@ -72,11 +77,11 @@ describe('Login container', (): void => {
       <Login
         state={State.default}
         email="email bla"
-        emailStatus="default"
+        emailStatus={FormInputStatus.default}
         emailMessage="message"
         onChangeEmail={(): void => undefined}
         password="password bla"
-        passwordStatus="default"
+        passwordStatus={FormInputStatus.default}
         passwordMessage="message"
         onChangePassword={(): void => undefined}
         onLogin={(): void => undefined}
@@ -85,9 +90,11 @@ describe('Login container', (): void => {
       />
     ).root
 
-    container.findByProps({
-      title: actionMessage,
-    }).props.onPress()
+    container
+      .find(
+        (node) => node.type === Button && node.props.title === actionMessage,
+      )
+      .props.onPress()
 
     expect(onForgotPassword).toBeCalled()
   })

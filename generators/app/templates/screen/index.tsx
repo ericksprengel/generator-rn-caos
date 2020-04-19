@@ -1,25 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationStackProp } from 'react-navigation-stack'
 import * as R from 'ramda'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
-import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
+import <%= componentName %>Container, {
+  FormInputStatus,
+  State,
+} from 'src/containers/<%= componentPath %>/<%= componentName %>'
 
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
-export interface NavigationParams {
-}
+export interface NavigationParams {}
 
 export interface <%= componentName %>ScreenProps {
-  navigation: NavigationStackProp<NavigationParams>;
+  navigation: NavigationStackProp<NavigationParams>
 }
 
-const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({ navigation }) => {
-  const {
-    formData, formErrors, onChangeFormInput, isFormValid
-  } = useForm({
+const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
+  navigation,
+}) => {
+  const [state, setState] = useState(State.default)
+  const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
 <% for (const input of inputs) { -%>
       <%- input -%>: '',
@@ -53,10 +56,13 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 <% } -%>
   return (
     <<%= componentName %>Container
+      state={state}
 <% for (const input of inputs) { -%>
       <%- input -%>={formData.<%- input -%>}
-      <%- input -%>Status={formErrors.<%- input -%> ? 'error' : 'default'}
-      <%- input -%>Message={formErrors.<%- input -%> && formErrors.<%- input -%>[0]}
+      <%- input -%>Status={
+        formErrors.<%- input -%> ? FormInputStatus.error : FormInputStatus.default
+      }
+      <%- input -%>Message={formErrors.<%- input -%> ? formErrors.<%- input -%>[0] : undefined}
       <%= helpers.getInputCallbackName(input) %>={onChangeFormInput('<%= input %>')}
 <% } -%>
 <% for (const action of actions) { -%>

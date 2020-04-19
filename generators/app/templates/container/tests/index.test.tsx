@@ -1,8 +1,9 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
+import { Button } from 'src/components'
 import * as states from './componentStates'
-import <%= componentName %>, { State } from '..'
+import <%= componentName %>, { FormInputStatus, State } from '..'
 
 describe('<%= componentName %> container', (): void => {
   testSnapshots(states)
@@ -17,7 +18,7 @@ describe('<%= componentName %> container', (): void => {
         state={State.default}
 <% for (const input of inputs) { -%>
         <%- input -%>="<%- input -%> bla"
-        <%- input -%>Status="default"
+        <%- input -%>Status={FormInputStatus.default}
         <%- input -%>Message="message"
         <%= helpers.getInputCallbackName(input) %>={(): void => undefined}
 <% } -%>
@@ -27,9 +28,11 @@ describe('<%= componentName %> container', (): void => {
       />
     ).root
 
-    container.findByProps({
-      title: actionMessage,
-    }).props.onPress()
+    container
+      .find(
+        (node) => node.type === Button && node.props.title === actionMessage,
+      )
+      .props.onPress()
 
     expect(<%= action %>).toBeCalled()
   })

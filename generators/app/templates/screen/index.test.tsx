@@ -1,47 +1,48 @@
 import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
+import { NavigationStackProp } from 'react-navigation-stack'
+import { mock } from 'jest-mock-extended'
+import <%= componentName %>Container from 'src/containers/Auth/<%= componentName %>'
 import <%= componentName %>Screen from '.'
 
 describe('<%= componentName.toLowerCase() %>Screen screen', () => {
-  const navigationMock = {
-    navigate: jest.fn()
-  }
-  let testInstance: ReactTestInstance
+  const mockNavigate = jest.fn()
+  const navigationMock = mock<NavigationStackProp>({
+    navigate: mockNavigate,
+    pop: jest.fn(),
+  })
+  let containerInstance: ReactTestInstance
   beforeEach(() => {
-    navigationMock.navigate.mockClear()
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    testInstance = create(
+    mockNavigate.mockClear()
+    containerInstance = create(
       <<%= componentName %>Screen
         navigation={navigationMock}
       />
-    )!.root
+    ).root.findByType(<%= componentName %>Container)
   })
 
 <% for (const action of actions) { -%>
-  describe('when pressing the <%= action %> button', () => {
+  describe('when <%= action %> is called', () => {
     beforeEach(() => {
-      const button = testInstance.findByProps({ title: '<%= action %>' })
       act(() => {
-        button.props.onPress()
+        containerInstance.props.<%- action -%>()
       })
     })
-    test('should do something', () => {
-      expect(navigationMock.navigate).not.toHaveBeenCalled()
+    test('TODO: should do something', () => {
+      expect(mockNavigate).not.toHaveBeenCalled()
     })
   })
 <% } -%>
 
 <% for (const input of inputs) { -%>
   describe('when changing the <%- input -%> input', () => {
-    let input
     beforeEach(() => {
-      input = testInstance.findByProps({ label: '<%- input -%>' })
       act(() => {
-        input.props.onChange('<%- input -%>')
+        containerInstance.props.<%= helpers.getInputCallbackName(input) %>('<%- input -%>')
       })
     })
-    test('should do something', () => {
-      expect(input.props.value).toBe('<%- input -%>')
+    test('should update <%- input -%> value', () => {
+      expect(containerInstance.props.<%- input -%>).toBe('<%- input -%>')
     })
   })
 <% } -%>
