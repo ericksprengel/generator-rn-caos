@@ -12,6 +12,7 @@ import <%= componentName %>Container, {
 
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NavigationParams {}
 
 export interface <%= componentName %>ScreenProps {

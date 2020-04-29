@@ -12,6 +12,7 @@ import LoginContainer, {
 
 const LOG_TAG = 'App/Auth/Login'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NavigationParams {}
 
 export interface LoginScreenProps {
