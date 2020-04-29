@@ -25,17 +25,17 @@ export enum State {
 
 export interface LoginProps {
   state: State;
-  email?: string;
-  emailStatus?: FormInputStatus;
-  emailMessage?: string;
-  onChangeEmail: (email: string) => void;
-  password?: string;
-  passwordStatus?: FormInputStatus;
-  passwordMessage?: string;
-  onChangePassword: (password: string) => void;
-  onLogin: () => void;
-  onBack: () => void;
-  onForgotPassword: () => void;
+  email?: string
+  emailStatus?: FormInputStatus
+  emailMessage?: string
+  onChangeEmail: (email: string) => void
+  password?: string
+  passwordStatus?: FormInputStatus
+  passwordMessage?: string
+  onChangePassword: (password: string) => void
+  onLogin: () => void
+  onBack: () => void
+  onForgotPassword: () => void
 }
 
 const Login: React.FC<LoginProps> = ({

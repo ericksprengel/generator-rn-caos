@@ -26,13 +26,13 @@ export enum State {
 export interface <%= componentName %>Props {
   state: State;
 <% for (const input of inputs) { -%>
-  <%- input -%>?: string;
-  <%- input -%>Status?: FormInputStatus;
-  <%- input -%>Message?: string;
-  <%= helpers.getInputCallbackName(input) %>: (<%- input -%>: string) => void;
+  <%- input -%>?: string
+  <%- input -%>Status?: FormInputStatus
+  <%- input -%>Message?: string
+  <%= helpers.getInputCallbackName(input) %>: (<%- input -%>: string) => void
 <% } -%>
 <%- actions.map(
-  (action) => '  ' + action + ': () => void;\n').join('')
+  (action) => '  ' + action + ': () => void\n').join('')
 -%>
 }
 
