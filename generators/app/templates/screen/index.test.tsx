@@ -2,7 +2,7 @@ import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
-import <%= componentName %>Container from 'src/containers/Auth/<%= componentName %>'
+import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 import <%= componentName %>Screen from '.'
 
 describe('<%= componentName.toLowerCase() %>Screen screen', () => {

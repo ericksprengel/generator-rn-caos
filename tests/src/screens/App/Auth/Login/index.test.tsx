@@ -2,7 +2,7 @@ import React from 'react'
 import { create, act, ReactTestInstance } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
-import LoginContainer from 'src/containers/Auth/Login'
+import LoginContainer from 'src/containers/App/Auth/Login'
 import LoginScreen from '.'
 
 describe('loginScreen screen', () => {
