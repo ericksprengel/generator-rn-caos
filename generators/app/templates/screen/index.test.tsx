@@ -15,9 +15,7 @@ describe('<%= componentName.toLowerCase() %>Screen screen', () => {
   beforeEach(() => {
     mockNavigate.mockClear()
     containerInstance = create(
-      <<%= componentName %>Screen
-        navigation={navigationMock}
-      />
+      <<%= componentName %>Screen navigation={navigationMock} />,
     ).root.findByType(<%= componentName %>Container)
   })
 

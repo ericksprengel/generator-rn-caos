@@ -1,14 +1,7 @@
 import React from 'react'
-import {
-  View,
-} from 'react-native'
-import {
-  FormInput,
-} from 'jadd-components'
-import {
-  Button,
-  Text,
-} from 'src/components'
+import { View } from 'react-native'
+import { FormInput } from 'jadd-components'
+import { Button, Text } from 'src/components'
 import styles from './styles'
 
 export enum FormInputStatus {
@@ -24,7 +17,7 @@ export enum State {
 }
 
 export interface <%= componentName %>Props {
-  state: State;
+  state: State
 <% for (const input of inputs) { -%>
   <%- input -%>?: string
   <%- input -%>Status?: FormInputStatus

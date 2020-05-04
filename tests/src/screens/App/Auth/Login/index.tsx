@@ -19,9 +19,7 @@ export interface LoginScreenProps {
   navigation: NavigationStackProp<NavigationParams>
 }
 
-const LoginScreen: React.FC<LoginScreenProps> = ({
-  navigation,
-}) => {
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [state, setState] = useState(State.default)
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {

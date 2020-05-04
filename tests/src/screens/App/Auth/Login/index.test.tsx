@@ -15,9 +15,7 @@ describe('loginScreen screen', () => {
   beforeEach(() => {
     mockNavigate.mockClear()
     containerInstance = create(
-      <LoginScreen
-        navigation={navigationMock}
-      />
+      <LoginScreen navigation={navigationMock} />,
     ).root.findByType(LoginContainer)
   })
 

@@ -19,9 +19,7 @@ export interface <%= componentName %>ScreenProps {
   navigation: NavigationStackProp<NavigationParams>
 }
 
-const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
-  navigation,
-}) => {
+const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({ navigation }) => {
   const [state, setState] = useState(State.default)
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {

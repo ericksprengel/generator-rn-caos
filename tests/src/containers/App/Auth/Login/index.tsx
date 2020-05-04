@@ -1,14 +1,7 @@
 import React from 'react'
-import {
-  View,
-} from 'react-native'
-import {
-  FormInput,
-} from 'jadd-components'
-import {
-  Button,
-  Text,
-} from 'src/components'
+import { View } from 'react-native'
+import { FormInput } from 'jadd-components'
+import { Button, Text } from 'src/components'
 import styles from './styles'
 
 export enum FormInputStatus {

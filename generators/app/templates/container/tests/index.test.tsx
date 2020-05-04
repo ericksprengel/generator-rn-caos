@@ -8,7 +8,7 @@ import <%= componentName %>, { FormInputStatus, State } from '..'
 describe('<%= componentName %> container', (): void => {
   testSnapshots(states)
 
-<% for (const action of actions) { %>
+<% for (const action of actions) { -%>
   test('<%= action %> should be called', (): void => {
     const <%= action %> = jest.fn()
     const actionMessage = '<%= action %>'
@@ -25,7 +25,7 @@ describe('<%= componentName %> container', (): void => {
 <% for (const actionI of actions) { -%>
         <%= actionI %>={<%- actionI === action ? actionI : '(): void => undefined' %>}
 <% } -%>
-      />
+      />,
     ).root
 
     container
