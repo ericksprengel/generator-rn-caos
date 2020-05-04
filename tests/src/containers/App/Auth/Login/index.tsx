@@ -17,7 +17,7 @@ export enum State {
 }
 
 export interface LoginProps {
-  state: State;
+  state: State
   email?: string
   emailStatus?: FormInputStatus
   emailMessage?: string
