@@ -20,7 +20,7 @@ export interface <%= componentName %>ScreenProps {
 }
 
 const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({ navigation }) => {
-  const [state, setState] = useState(State.default)
+  const [state, setState] = useState(State.<%= states[0] %>)
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
 <% for (const input of inputs) { -%>

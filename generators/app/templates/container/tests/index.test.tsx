@@ -15,7 +15,7 @@ describe('<%= componentName %> container', (): void => {
 
     const container = create(
       <<%= componentName %>
-        state={State.default}
+        state={State.<%- states[0] -%>}
 <% for (const input of inputs) { -%>
         <%- input -%>="<%- input -%> bla"
         <%- input -%>Status={FormInputStatus.default}

@@ -11,9 +11,9 @@ export enum FormInputStatus {
 }
 
 export enum State {
-  default = 'default',
-  loading = 'loading',
-  error = 'error',
+<% for (const state of states) { -%>
+  <%- state -%> = '<%- state -%>',
+<% } -%>
 }
 
 export interface <%= componentName %>Props {
@@ -57,7 +57,10 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
     <Button
       title="<%= action %>"
       style={styles.button}
+<% if (states.includes('loading')) { -%>
+      disabled={state === State.loading}
       loading={state === State.loading}
+<% } -%>
       onPress={<%= action %>}
     />
 <% } -%>

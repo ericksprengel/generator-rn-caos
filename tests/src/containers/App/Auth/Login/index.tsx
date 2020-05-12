@@ -69,18 +69,21 @@ const Login: React.FC<LoginProps> = ({
     <Button
       title="onLogin"
       style={styles.button}
+      disabled={state === State.loading}
       loading={state === State.loading}
       onPress={onLogin}
     />
     <Button
       title="onBack"
       style={styles.button}
+      disabled={state === State.loading}
       loading={state === State.loading}
       onPress={onBack}
     />
     <Button
       title="onForgotPassword"
       style={styles.button}
+      disabled={state === State.loading}
       loading={state === State.loading}
       onPress={onForgotPassword}
     />
