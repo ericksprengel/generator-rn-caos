@@ -47,7 +47,7 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 <% for (const action of actions) { -%>
   const <%= helpers.getHandleActionName(action) %> = (): void => {
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= action %> NOT IMPLEMENTED')
-    if (isFormValid()) {
+    if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
   }

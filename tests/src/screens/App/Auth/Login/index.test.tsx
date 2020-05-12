@@ -26,7 +26,7 @@ describe('loginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).not.toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalled()
     })
   })
   describe('when onBack is called', () => {
@@ -36,7 +36,7 @@ describe('loginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).not.toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalled()
     })
   })
   describe('when onForgotPassword is called', () => {
@@ -46,7 +46,7 @@ describe('loginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).not.toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalled()
     })
   })
 

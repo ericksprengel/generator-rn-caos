@@ -27,7 +27,7 @@ describe('<%= componentName.toLowerCase() %>Screen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).not.toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalled()
     })
   })
 <% } -%>
