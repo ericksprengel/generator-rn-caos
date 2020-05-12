@@ -18,6 +18,7 @@ export enum State {
 
 export interface LoginProps {
   state: State
+  name?: string
   email?: string
   emailStatus?: FormInputStatus
   emailMessage?: string
@@ -33,6 +34,7 @@ export interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({
   state,
+  name,
   email,
   emailStatus,
   emailMessage,
@@ -48,6 +50,7 @@ const Login: React.FC<LoginProps> = ({
   <View style={styles.container}>
     <Text>Login</Text>
     <Text>State: {state}</Text>
+    <Text>name: {name}</Text>
     <FormInput
       onChangeText={onChangeEmail}
       value={email}

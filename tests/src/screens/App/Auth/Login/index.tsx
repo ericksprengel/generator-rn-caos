@@ -21,6 +21,7 @@ export interface LoginScreenProps {
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [state, setState] = useState(State.default)
+  const [name, setName] = useState('')
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
       email: '',
@@ -67,6 +68,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   return (
     <LoginContainer
       state={state}
+      name={name}
       email={formData.email}
       emailStatus={
         formErrors.email ? FormInputStatus.error : FormInputStatus.default

@@ -18,6 +18,9 @@ export enum State {
 
 export interface <%= componentName %>Props {
   state: State
+<% for (const containerParam of containerParams) { -%>
+  <%- containerParam -%>?: string
+<% } -%>
 <% for (const input of inputs) { -%>
   <%- input -%>?: string
   <%- input -%>Status?: FormInputStatus
@@ -31,6 +34,9 @@ export interface <%= componentName %>Props {
 
 const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   state,
+<% for (const containerParam of containerParams) { -%>
+  <%- containerParam -%>,
+<% } -%>
 <% for (const input of inputs) { -%>
   <%- input -%>,
   <%- input -%>Status,
@@ -42,6 +48,9 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <View style={styles.container}>
     <Text><%= componentName %></Text>
     <Text>State: {state}</Text>
+<% for (const containerParam of containerParams) { -%>
+    <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+<% } -%>
 <% for (const input of inputs) { -%>
     <FormInput
       onChangeText={<%= helpers.getInputCallbackName(input) %>}

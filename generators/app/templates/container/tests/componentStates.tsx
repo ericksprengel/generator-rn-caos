@@ -6,6 +6,9 @@ import <%= componentName %>, { FormInputStatus, State } from '..'
 const <%- helpers.getStateComponentNameForStorybook(state) -%>: React.FC = () => (
   <<%= componentName %>
     state={State.<%- state -%>}
+<% for (const containerParam of containerParams) { -%>
+    <%- containerParam -%>="<%- containerParam -%>Param"
+<% } -%>
 <% for (const input of inputs) { -%>
     <%- input -%>="<%- input -%> bla"
     <%- input -%>Status={FormInputStatus.default}

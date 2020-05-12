@@ -54,6 +54,11 @@ module.exports = class extends Generator {
       },
       {
         type: 'input',
+        name: 'containerParams',
+        message: 'Your container params (ex.: name, fullname):'
+      },
+      {
+        type: 'input',
         name: 'inputs',
         message: 'List input views (ex.: email, password):'
       },
@@ -70,32 +75,55 @@ module.exports = class extends Generator {
       const states = ['default', 'loading', 'error']
       const componentPath = this.answers.path
       const componentName = this.answers.name
+      const containerParams = parseArrayFromString(this.answers.containerParams)
       const inputs = parseArrayFromString(this.answers.inputs)
       const actions = parseArrayFromString(this.answers.actions)
       this._writeContainer({
-        componentPath, componentName, states, inputs, actions
+        componentPath,
+        componentName,
+        states,
+        containerParams,
+        inputs,
+        actions
       })
       this._writeScreen({
-        componentPath, componentName, states, inputs, actions
+        componentPath,
+        componentName,
+        states,
+        containerParams,
+        inputs,
+        actions
       })
       return
     }
+
     for (var fullPath in this.yamlDoc) {
       this.log('fullPath:', fullPath)
       const screenYaml = this.yamlDoc[fullPath]
       const componentPath = fullPath.slice(0, fullPath.lastIndexOf('/'))
       const componentName = fullPath.slice(fullPath.lastIndexOf('/') + 1)
       const states = parseArrayFromString(screenYaml.states)
+      const containerParams = parseArrayFromString(screenYaml.params)
       const inputs = parseArrayFromString(screenYaml.inputs)
       const actions = parseArrayFromString(screenYaml.actions)
       this.log({
         componentPath, componentName, states, inputs, actions
       })
       this._writeContainer({
-        componentPath, componentName, states, inputs, actions
+        componentPath,
+        componentName,
+        states,
+        containerParams,
+        inputs,
+        actions
       })
       this._writeScreen({
-        componentPath, componentName, states, inputs, actions
+        componentPath,
+        componentName,
+        states,
+        containerParams,
+        inputs,
+        actions
       })
     }
   }
@@ -104,6 +132,7 @@ module.exports = class extends Generator {
     componentPath,
     componentName,
     states,
+    containerParams,
     inputs,
     actions
   }) {
@@ -115,6 +144,7 @@ module.exports = class extends Generator {
           componentName,
           componentPath,
           states,
+          containerParams,
           inputs,
           actions,
           helpers
@@ -127,6 +157,7 @@ module.exports = class extends Generator {
     componentPath,
     componentName,
     states,
+    containerParams,
     inputs,
     actions
   }) {
@@ -138,6 +169,7 @@ module.exports = class extends Generator {
           componentName,
           componentPath,
           states,
+          containerParams,
           inputs,
           actions,
           helpers
