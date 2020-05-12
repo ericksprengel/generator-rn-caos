@@ -1,3 +1,5 @@
+var yaml = require('js-yaml')
+var fs = require('fs')
 var helpers = require('./helpers')
 var Generator = require('yeoman-generator')
 
@@ -14,18 +16,29 @@ const SCREEN_FILES = [
   'index.test.tsx'
 ]
 
+const parseArrayFromString = (str) => str ? str.split(',') : []
+
 module.exports = class extends Generator {
   // The name `constructor` is important here
-  // constructor (args, opts) {
-  //   // Calling the super constructor is important so our generator is correctly set up
-  //   super(args, opts)
+  constructor (args, opts) {
+    // Calling the super constructor is important so our generator is correctly set up
+    super(args, opts)
 
-  //   // Next, add your custom code
-  //   // this.option('babel') // This method adds support for a `--babel` flag
-  //   this.argument('name', { type: String })
-  // }
+    // Next, add your custom code
+    // this.option('babel') // This method adds support for a `--babel` flag
+    this.argument('yaml', { type: String, required: false })
+
+    var yamlFile = this.options['yaml']
+    if (yamlFile) {
+      this.yamlDoc = yaml.safeLoad(fs.readFileSync(yamlFile, 'utf8'))
+      this.log(this.yamlDoc)
+    }
+  }
 
   async prompting () {
+    if (this.yamlDoc) {
+      return
+    }
     this.answers = await this.prompt([
       {
         type: 'input',
@@ -51,18 +64,47 @@ module.exports = class extends Generator {
   }
 
   writing () {
-    // this.log('cool feature', this.answers.cool)
-    this._writeContainer()
-    this._writeScreen()
+    if (!this.yamlDoc) {
+      const states = ['default', 'loading', 'error']
+      const componentPath = this.answers.path
+      const componentName = this.answers.name
+      const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
+      const actions = this.answers.actions ? this.answers.actions.split(',') : []
+      this._writeContainer({
+        componentPath, componentName, states, inputs, actions
+      })
+      this._writeScreen({
+        componentPath, componentName, states, inputs, actions
+      })
+      return
+    }
+    for (var fullPath in this.yamlDoc) {
+      this.log('fullPath:', fullPath)
+      const screenYaml = this.yamlDoc[fullPath]
+      const componentPath = fullPath.slice(0, fullPath.lastIndexOf('/'))
+      const componentName = fullPath.slice(fullPath.lastIndexOf('/') + 1)
+      const states = parseArrayFromString(screenYaml.states)
+      const inputs = screenYaml.inputs ? screenYaml.inputs.split(',') : []
+      const actions = screenYaml.actions ? screenYaml.actions.split(',') : []
+      this.log({
+        componentPath, componentName, states, inputs, actions
+      })
+      this._writeContainer({
+        componentPath, componentName, states, inputs, actions
+      })
+      this._writeScreen({
+        componentPath, componentName, states, inputs, actions
+      })
+    }
   }
 
-  _writeContainer () {
-    const componentPath = this.answers.path
-    const componentName = this.answers.name
-    const states = ['default', 'loading', 'error']
-    const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
-    const actions = this.answers.actions ? this.answers.actions.split(',') : []
-
+  _writeContainer ({
+    componentPath,
+    componentName,
+    states,
+    inputs,
+    actions
+  }) {
     for (const item of CONTAINER_FILES) {
       this.fs.copyTpl(
         this.templatePath('container/' + item),
@@ -79,13 +121,13 @@ module.exports = class extends Generator {
     }
   }
 
-  _writeScreen () {
-    const componentPath = this.answers.path
-    const componentName = this.answers.name
-    const states = ['default', 'loading', 'error']
-    const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
-    const actions = this.answers.actions ? this.answers.actions.split(',') : []
-
+  _writeScreen ({
+    componentPath,
+    componentName,
+    states,
+    inputs,
+    actions
+  }) {
     for (const item of SCREEN_FILES) {
       this.fs.copyTpl(
         this.templatePath('screen/' + item),
