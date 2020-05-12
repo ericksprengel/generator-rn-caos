@@ -16,7 +16,9 @@ const SCREEN_FILES = [
   'index.test.tsx'
 ]
 
-const parseArrayFromString = (str) => str ? str.split(',') : []
+const parseArrayFromString = (str) => str
+  ? str.split(',').map(item => item.trim())
+  : []
 
 module.exports = class extends Generator {
   // The name `constructor` is important here
@@ -31,7 +33,7 @@ module.exports = class extends Generator {
     var yamlFile = this.options['yaml']
     if (yamlFile) {
       this.yamlDoc = yaml.safeLoad(fs.readFileSync(yamlFile, 'utf8'))
-      this.log(this.yamlDoc)
+      // this.log(this.yamlDoc)
     }
   }
 
@@ -68,8 +70,8 @@ module.exports = class extends Generator {
       const states = ['default', 'loading', 'error']
       const componentPath = this.answers.path
       const componentName = this.answers.name
-      const inputs = this.answers.inputs ? this.answers.inputs.split(',') : []
-      const actions = this.answers.actions ? this.answers.actions.split(',') : []
+      const inputs = parseArrayFromString(this.answers.inputs)
+      const actions = parseArrayFromString(this.answers.actions)
       this._writeContainer({
         componentPath, componentName, states, inputs, actions
       })
@@ -84,8 +86,8 @@ module.exports = class extends Generator {
       const componentPath = fullPath.slice(0, fullPath.lastIndexOf('/'))
       const componentName = fullPath.slice(fullPath.lastIndexOf('/') + 1)
       const states = parseArrayFromString(screenYaml.states)
-      const inputs = screenYaml.inputs ? screenYaml.inputs.split(',') : []
-      const actions = screenYaml.actions ? screenYaml.actions.split(',') : []
+      const inputs = parseArrayFromString(screenYaml.inputs)
+      const actions = parseArrayFromString(screenYaml.actions)
       this.log({
         componentPath, componentName, states, inputs, actions
       })
