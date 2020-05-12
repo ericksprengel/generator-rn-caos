@@ -41,6 +41,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   })
 
   const handleOnLogin = (): void => {
+    log.i(LOG_TAG, 'onLogin')
     log.e(LOG_TAG, 'TODO: Login/onLogin NOT IMPLEMENTED')
     if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
@@ -48,6 +49,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   }
 
   const handleOnBack = (): void => {
+    log.i(LOG_TAG, 'onBack')
     log.e(LOG_TAG, 'TODO: Login/onBack NOT IMPLEMENTED')
     if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
@@ -55,6 +57,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   }
 
   const handleOnForgotPassword = (): void => {
+    log.i(LOG_TAG, 'onForgotPassword')
     log.e(LOG_TAG, 'TODO: Login/onForgotPassword NOT IMPLEMENTED')
     if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
