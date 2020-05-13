@@ -5,7 +5,7 @@ import { mock } from 'jest-mock-extended'
 import LoginContainer from 'src/containers/App/Auth/Login'
 import LoginScreen from '.'
 
-describe('loginScreen screen', () => {
+describe('LoginScreen screen', () => {
   const mockNavigate = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,

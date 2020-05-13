@@ -5,7 +5,7 @@ import { mock } from 'jest-mock-extended'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 import <%= componentName %>Screen from '.'
 
-describe('<%= componentName.toLowerCase() %>Screen screen', () => {
+describe('<%= componentName %>Screen screen', () => {
   const mockNavigate = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,

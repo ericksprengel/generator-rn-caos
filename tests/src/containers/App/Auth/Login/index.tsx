@@ -46,7 +46,7 @@ const Login: React.FC<LoginProps> = ({
   onLogin,
   onBack,
   onForgotPassword,
-}: LoginProps) => (
+}) => (
   <View style={styles.container}>
     <Text>Login</Text>
     <Text>State: {state}</Text>

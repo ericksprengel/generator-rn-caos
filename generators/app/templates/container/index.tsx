@@ -44,7 +44,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-}: <%= componentName %>Props) => (
+}) => (
   <View style={styles.container}>
     <Text><%= componentName %></Text>
     <Text>State: {state}</Text>
