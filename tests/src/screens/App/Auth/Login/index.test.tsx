@@ -7,13 +7,15 @@ import LoginScreen from '.'
 
 describe('LoginScreen screen', () => {
   const mockNavigate = jest.fn()
+  const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,
-    pop: jest.fn(),
+    pop: mockNavigationPop,
   })
   let containerInstance: ReactTestInstance
   beforeEach(() => {
     mockNavigate.mockClear()
+    mockNavigationPop.mockClear()
     containerInstance = create(
       <LoginScreen navigation={navigationMock} />,
     ).root.findByType(LoginContainer)
@@ -26,7 +28,7 @@ describe('LoginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalledTimes(1)
     })
   })
   describe('when onBack is called', () => {
@@ -36,7 +38,7 @@ describe('LoginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalledTimes(1)
     })
   })
   describe('when onForgotPassword is called', () => {
@@ -46,7 +48,7 @@ describe('LoginScreen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalledTimes(1)
     })
   })
 
