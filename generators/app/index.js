@@ -106,9 +106,9 @@ module.exports = class extends Generator {
       const containerParams = parseArrayFromString(screenYaml.params)
       const inputs = parseArrayFromString(screenYaml.inputs)
       const actions = parseArrayFromString(screenYaml.actions)
-      this.log({
-        componentPath, componentName, states, inputs, actions
-      })
+      // this.log({
+      //   componentPath, componentName, states, inputs, actions
+      // })
       this._writeContainer({
         componentPath,
         componentName,

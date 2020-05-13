@@ -20,4 +20,8 @@ send "email,password\n"
 expect "? List button actions:"
 send "onLogin,onBack,onForgotPassword\n"
 
-interact
+expect eof
+
+spawn yo rn-caos ./login.yml
+
+expect eof
