@@ -5,6 +5,7 @@ import Login, { FormInputStatus, State } from '..'
 const Default: React.FC = () => (
   <Login
     state={State.default}
+    name="nameParam"
     email="email bla"
     emailStatus={FormInputStatus.default}
     emailMessage="message"
@@ -21,6 +22,7 @@ const Default: React.FC = () => (
 const Loading: React.FC = () => (
   <Login
     state={State.loading}
+    name="nameParam"
     email="email bla"
     emailStatus={FormInputStatus.default}
     emailMessage="message"
@@ -37,6 +39,7 @@ const Loading: React.FC = () => (
 const Error: React.FC = () => (
   <Login
     state={State.error}
+    name="nameParam"
     email="email bla"
     emailStatus={FormInputStatus.default}
     emailMessage="message"

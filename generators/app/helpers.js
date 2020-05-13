@@ -16,6 +16,7 @@ const getInputCallbackName = function (inputName) {
 }
 
 module.exports = {
+  toUpperCaseFirstLetter,
   getStateComponentNameForStorybook,
   getHandleActionName,
   getInputCallbackName

@@ -20,7 +20,10 @@ export interface <%= componentName %>ScreenProps {
 }
 
 const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({ navigation }) => {
-  const [state, setState] = useState(State.default)
+  const [state, setState] = useState(State.<%= states[0] %>)
+<% for (const containerParam of containerParams) { -%>
+  const [<%- containerParam -%>, set<%- helpers.toUpperCaseFirstLetter(containerParam) -%>] = useState('')
+<% } -%>
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
 <% for (const input of inputs) { -%>
@@ -46,8 +49,9 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 
 <% for (const action of actions) { -%>
   const <%= helpers.getHandleActionName(action) %> = (): void => {
+    log.i(LOG_TAG, '<%= action %>')
     log.e(LOG_TAG, 'TODO: <%= componentName %>/<%= action %> NOT IMPLEMENTED')
-    if (isFormValid()) {
+    if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
   }
@@ -56,6 +60,9 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
   return (
     <<%= componentName %>Container
       state={state}
+<% for (const containerParam of containerParams) { -%>
+      <%- containerParam -%>={<%- containerParam -%>}
+<% } -%>
 <% for (const input of inputs) { -%>
       <%- input -%>={formData.<%- input -%>}
       <%- input -%>Status={

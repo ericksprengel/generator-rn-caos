@@ -5,15 +5,17 @@ import { mock } from 'jest-mock-extended'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
 import <%= componentName %>Screen from '.'
 
-describe('<%= componentName.toLowerCase() %>Screen screen', () => {
+describe('<%= componentName %>Screen screen', () => {
   const mockNavigate = jest.fn()
+  const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,
-    pop: jest.fn(),
+    pop: mockNavigationPop,
   })
   let containerInstance: ReactTestInstance
   beforeEach(() => {
     mockNavigate.mockClear()
+    mockNavigationPop.mockClear()
     containerInstance = create(
       <<%= componentName %>Screen navigation={navigationMock} />,
     ).root.findByType(<%= componentName %>Container)
@@ -27,7 +29,7 @@ describe('<%= componentName.toLowerCase() %>Screen screen', () => {
       })
     })
     test('TODO: should do something', () => {
-      expect(mockNavigate).not.toHaveBeenCalled()
+      expect(mockNavigate).toHaveBeenCalledTimes(1)
     })
   })
 <% } -%>

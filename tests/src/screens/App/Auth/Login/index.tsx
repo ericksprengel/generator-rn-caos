@@ -21,6 +21,7 @@ export interface LoginScreenProps {
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [state, setState] = useState(State.default)
+  const [name, setName] = useState('')
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
       email: '',
@@ -41,22 +42,25 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   })
 
   const handleOnLogin = (): void => {
+    log.i(LOG_TAG, 'onLogin')
     log.e(LOG_TAG, 'TODO: Login/onLogin NOT IMPLEMENTED')
-    if (isFormValid()) {
+    if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
   }
 
   const handleOnBack = (): void => {
+    log.i(LOG_TAG, 'onBack')
     log.e(LOG_TAG, 'TODO: Login/onBack NOT IMPLEMENTED')
-    if (isFormValid()) {
+    if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
   }
 
   const handleOnForgotPassword = (): void => {
+    log.i(LOG_TAG, 'onForgotPassword')
     log.e(LOG_TAG, 'TODO: Login/onForgotPassword NOT IMPLEMENTED')
-    if (isFormValid()) {
+    if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
   }
@@ -64,6 +68,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   return (
     <LoginContainer
       state={state}
+      name={name}
       email={formData.email}
       emailStatus={
         formErrors.email ? FormInputStatus.error : FormInputStatus.default

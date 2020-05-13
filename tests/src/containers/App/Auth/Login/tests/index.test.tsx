@@ -15,6 +15,7 @@ describe('Login container', (): void => {
     const container = create(
       <Login
         state={State.default}
+        name="nameParam"
         email="email bla"
         emailStatus={FormInputStatus.default}
         emailMessage="message"
@@ -44,6 +45,7 @@ describe('Login container', (): void => {
     const container = create(
       <Login
         state={State.default}
+        name="nameParam"
         email="email bla"
         emailStatus={FormInputStatus.default}
         emailMessage="message"
@@ -73,6 +75,7 @@ describe('Login container', (): void => {
     const container = create(
       <Login
         state={State.default}
+        name="nameParam"
         email="email bla"
         emailStatus={FormInputStatus.default}
         emailMessage="message"

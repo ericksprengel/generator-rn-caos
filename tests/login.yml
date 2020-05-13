@@ -1,0 +1,6 @@
+App/Auth/Login:
+  states: default,loading,error
+  params: name
+  inputs: email,password
+  actions: onLogin,onBack,onForgotPassword
+  screenParams: bananaScreenParams

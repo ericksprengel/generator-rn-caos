@@ -18,6 +18,7 @@ export enum State {
 
 export interface LoginProps {
   state: State
+  name?: string
   email?: string
   emailStatus?: FormInputStatus
   emailMessage?: string
@@ -33,6 +34,7 @@ export interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({
   state,
+  name,
   email,
   emailStatus,
   emailMessage,
@@ -44,10 +46,11 @@ const Login: React.FC<LoginProps> = ({
   onLogin,
   onBack,
   onForgotPassword,
-}: LoginProps) => (
+}) => (
   <View style={styles.container}>
     <Text>Login</Text>
     <Text>State: {state}</Text>
+    <Text>name: {name}</Text>
     <FormInput
       onChangeText={onChangeEmail}
       value={email}
@@ -69,18 +72,21 @@ const Login: React.FC<LoginProps> = ({
     <Button
       title="onLogin"
       style={styles.button}
+      disabled={state === State.loading}
       loading={state === State.loading}
       onPress={onLogin}
     />
     <Button
       title="onBack"
       style={styles.button}
+      disabled={state === State.loading}
       loading={state === State.loading}
       onPress={onBack}
     />
     <Button
       title="onForgotPassword"
       style={styles.button}
+      disabled={state === State.loading}
       loading={state === State.loading}
       onPress={onForgotPassword}
     />

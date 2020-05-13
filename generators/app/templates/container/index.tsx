@@ -11,13 +11,16 @@ export enum FormInputStatus {
 }
 
 export enum State {
-  default = 'default',
-  loading = 'loading',
-  error = 'error',
+<% for (const state of states) { -%>
+  <%- state -%> = '<%- state -%>',
+<% } -%>
 }
 
 export interface <%= componentName %>Props {
   state: State
+<% for (const containerParam of containerParams) { -%>
+  <%- containerParam -%>?: string
+<% } -%>
 <% for (const input of inputs) { -%>
   <%- input -%>?: string
   <%- input -%>Status?: FormInputStatus
@@ -31,6 +34,9 @@ export interface <%= componentName %>Props {
 
 const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   state,
+<% for (const containerParam of containerParams) { -%>
+  <%- containerParam -%>,
+<% } -%>
 <% for (const input of inputs) { -%>
   <%- input -%>,
   <%- input -%>Status,
@@ -38,10 +44,13 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-}: <%= componentName %>Props) => (
+}) => (
   <View style={styles.container}>
     <Text><%= componentName %></Text>
     <Text>State: {state}</Text>
+<% for (const containerParam of containerParams) { -%>
+    <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+<% } -%>
 <% for (const input of inputs) { -%>
     <FormInput
       onChangeText={<%= helpers.getInputCallbackName(input) %>}
@@ -57,7 +66,10 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
     <Button
       title="<%= action %>"
       style={styles.button}
+<% if (states.includes('loading')) { -%>
+      disabled={state === State.loading}
       loading={state === State.loading}
+<% } -%>
       onPress={<%= action %>}
     />
 <% } -%>
