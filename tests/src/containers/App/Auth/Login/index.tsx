@@ -1,8 +1,12 @@
 import React from 'react'
-import { View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
-import { Button, Text } from 'src/components'
+import { Button, Header, Text } from 'src/components'
+import Error, { Errors } from 'src/containers/common/Error'
+import States from 'src/containers/common/states'
 import styles from './styles'
+
+export { States } 
 
 export enum FormInputStatus {
   default = 'default',
@@ -10,14 +14,8 @@ export enum FormInputStatus {
   error = 'error',
 }
 
-export enum State {
-  default = 'default',
-  loading = 'loading',
-  error = 'error',
-}
-
 export interface LoginProps {
-  state: State
+  state: States
   name?: string
   email?: string
   emailStatus?: FormInputStatus
@@ -46,8 +44,9 @@ const Login: React.FC<LoginProps> = ({
   onLogin,
   onBack,
   onForgotPassword,
-}) => (
-  <View style={styles.container}>
+}) => {
+  const content = (
+    <View style={styles.container}>
     <Text>Login</Text>
     <Text>State: {state}</Text>
     <Text>name: {name}</Text>
@@ -72,25 +71,43 @@ const Login: React.FC<LoginProps> = ({
     <Button
       title="onLogin"
       style={styles.button}
-      disabled={state === State.loading}
-      loading={state === State.loading}
+      disabled={state === States.loading}
+      loading={state === States.loading}
       onPress={onLogin}
-    />
-    <Button
+      />
+  <Button
       title="onBack"
       style={styles.button}
-      disabled={state === State.loading}
-      loading={state === State.loading}
+      disabled={state === States.loading}
+      loading={state === States.loading}
       onPress={onBack}
-    />
-    <Button
+      />
+  <Button
       title="onForgotPassword"
       style={styles.button}
-      disabled={state === State.loading}
-      loading={state === State.loading}
+      disabled={state === States.loading}
+      loading={state === States.loading}
       onPress={onForgotPassword}
-    />
-  </View>
-)
+      />
+      </View>
+  )
+
+  const networkError = <Error error={Errors.networkError} />
+  const genericError = <Error error={Errors.genericError} />
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <Header title="Header Title" />
+      {
+        {
+          [States.default]: content,
+          [States.loading]: content,
+          [States.networkError]: networkError,
+          [States.genericError]: genericError,
+        }[state]
+      }
+    </SafeAreaView>
+  )
+}
 
 export default Login

@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavigationStackProp } from 'react-navigation-stack'
 import * as R from 'ramda'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
+import { formatNetworkErrors } from 'src/screens/common'
 import LoginContainer, {
   FormInputStatus,
-  State,
+  States,
 } from 'src/containers/App/Auth/Login'
 
 const LOG_TAG = 'App/Auth/Login'
@@ -20,7 +21,7 @@ export interface LoginScreenProps {
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-  const [state, setState] = useState(State.default)
+  const [state, setState] = useState(States.default)
   const [name, setName] = useState('')
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
@@ -40,6 +41,24 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       password: null,
     },
   })
+
+  const handleFetch = async (): Promise<void> => {
+    log.i(LOG_TAG, 'onHandleFetch')
+    setState(States.loading)
+
+    try {
+      setState(States.default)
+    } catch (error) {
+      const errorState = formatNetworkErrors.isNetworkError(error)
+        ? States.networkError
+        : States.genericError
+      setState(errorState)
+    }
+  }
+
+  useEffect(() => {
+    handleFetch()
+  }, [])
 
   const handleOnLogin = (): void => {
     log.i(LOG_TAG, 'onLogin')

@@ -55,3 +55,6 @@ Generated files:
    create src/screens/App/Auth/Login/index.tsx
    create src/screens/App/Auth/Login/index.test.tsx
 ```
+
+## Tests
+To modificate the generator just run `npm link` on root. Now just go to the folder `tests` and run `yo rn-caos ./login.yml` to see your changes.

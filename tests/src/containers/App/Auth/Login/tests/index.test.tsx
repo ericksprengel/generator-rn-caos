@@ -3,18 +3,18 @@ import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
 import { Button } from 'src/components'
 import * as states from './componentStates'
-import Login, { FormInputStatus, State } from '..'
+import Login, { FormInputStatus, States } from '..'
 
 describe('Login container', (): void => {
   testSnapshots(states)
-
+  
   test('onLogin should be called', (): void => {
     const onLogin = jest.fn()
     const actionMessage = 'onLogin'
 
     const container = create(
       <Login
-        state={State.default}
+        state={States.default}
         name="nameParam"
         email="email bla"
         emailStatus={FormInputStatus.default}
@@ -38,13 +38,14 @@ describe('Login container', (): void => {
 
     expect(onLogin).toBeCalled()
   })
+  
   test('onBack should be called', (): void => {
     const onBack = jest.fn()
     const actionMessage = 'onBack'
 
     const container = create(
       <Login
-        state={State.default}
+        state={States.default}
         name="nameParam"
         email="email bla"
         emailStatus={FormInputStatus.default}
@@ -68,13 +69,14 @@ describe('Login container', (): void => {
 
     expect(onBack).toBeCalled()
   })
+  
   test('onForgotPassword should be called', (): void => {
     const onForgotPassword = jest.fn()
     const actionMessage = 'onForgotPassword'
 
     const container = create(
       <Login
-        state={State.default}
+        state={States.default}
         name="nameParam"
         email="email bla"
         emailStatus={FormInputStatus.default}
