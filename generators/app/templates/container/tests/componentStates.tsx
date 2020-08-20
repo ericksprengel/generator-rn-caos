@@ -1,11 +1,10 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
-import <%= componentName %>, { FormInputStatus, State } from '..'
+import <%= componentName %>, { FormInputStatus, States } from '..'
 
-<% for (const state of states) { -%>
-const <%- helpers.getStateComponentNameForStorybook(state) -%>: React.FC = () => (
+const Container: React.FC<{ state: States }> = ({ state }) => (
   <<%= componentName %>
-    state={State.<%- state -%>}
+    state={state}
 <% for (const containerParam of containerParams) { -%>
     <%- containerParam -%>="<%- containerParam -%>Param"
 <% } -%>
@@ -20,6 +19,9 @@ const <%- helpers.getStateComponentNameForStorybook(state) -%>: React.FC = () =>
 <% } -%>
   />
 )
+
+<% for (const state of states) { -%>
+const <%- helpers.getStateComponentNameForStorybook(state) -%>: React.FC = () => <Container state={States.<%- state -%>} />
 <% } -%>
 
 export {

@@ -1,8 +1,12 @@
 import React from 'react'
-import { View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
-import { Button, Text } from 'src/components'
+import { Button, Header, Text } from 'src/components'
+import Error, { Errors } from 'src/containers/common/Error'
+import States from 'src/containers/common/states'
 import styles from './styles'
+
+export { States } 
 
 export enum FormInputStatus {
   default = 'default',
@@ -10,14 +14,8 @@ export enum FormInputStatus {
   error = 'error',
 }
 
-export enum State {
-<% for (const state of states) { -%>
-  <%- state -%> = '<%- state -%>',
-<% } -%>
-}
-
 export interface <%= componentName %>Props {
-  state: State
+  state: States
 <% for (const containerParam of containerParams) { -%>
   <%- containerParam -%>?: string
 <% } -%>
@@ -44,15 +42,16 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-}) => (
-  <View style={styles.container}>
+}) => {
+  const content = (
+    <View style={styles.container}>
     <Text><%= componentName %></Text>
     <Text>State: {state}</Text>
 <% for (const containerParam of containerParams) { -%>
     <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
 <% } -%>
-<% for (const input of inputs) { -%>
-    <FormInput
+  <% for (const input of inputs) { -%>
+  <FormInput
       onChangeText={<%= helpers.getInputCallbackName(input) %>}
       value={<%= input %>}
       type="default"
@@ -61,19 +60,37 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
       placeholder="<%= input %>"
       label="<%= input %>"
     />
-<% } -%>
-<% for (const action of actions) { -%>
-    <Button
+  <% } -%>
+  <% for (const action of actions) { -%>
+<Button
       title="<%= action %>"
       style={styles.button}
-<% if (states.includes('loading')) { -%>
-      disabled={state === State.loading}
-      loading={state === State.loading}
-<% } -%>
-      onPress={<%= action %>}
-    />
-<% } -%>
-  </View>
-)
+  <% if (states.includes('loading')) { -%>
+    disabled={state === States.loading}
+      loading={state === States.loading}
+  <% } -%>
+    onPress={<%= action %>}
+      />
+  <% } -%>
+    </View>
+  )
+
+  const networkError = <Error error={Errors.networkError} />
+  const genericError = <Error error={Errors.genericError} />
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <Header title="Header Title" />
+      {
+        {
+          [States.default]: content,
+          [States.loading]: content,
+          [States.networkError]: networkError,
+          [States.genericError]: genericError,
+        }[state]
+      }
+    </SafeAreaView>
+  )
+}
 
 export default <%= componentName %>
