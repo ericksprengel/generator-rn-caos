@@ -47,49 +47,49 @@ const Login: React.FC<LoginProps> = ({
 }) => {
   const content = (
     <View style={styles.container}>
-    <Text>Login</Text>
-    <Text>State: {state}</Text>
-    <Text>name: {name}</Text>
-    <FormInput
-      onChangeText={onChangeEmail}
-      value={email}
-      type="default"
-      status={emailStatus}
-      message={emailMessage}
-      placeholder="email"
-      label="email"
-    />
-    <FormInput
-      onChangeText={onChangePassword}
-      value={password}
-      type="default"
-      status={passwordStatus}
-      message={passwordMessage}
-      placeholder="password"
-      label="password"
-    />
-    <Button
-      title="onLogin"
-      style={styles.button}
-      disabled={state === States.loading}
-      loading={state === States.loading}
-      onPress={onLogin}
+      <Text>Login</Text>
+      <Text>State: {state}</Text>
+      <Text>name: {name}</Text>
+      <FormInput
+        onChangeText={onChangeEmail}
+        value={email}
+        type="default"
+        status={emailStatus}
+        message={emailMessage}
+        placeholder="email"
+        label="email"
       />
-  <Button
-      title="onBack"
-      style={styles.button}
-      disabled={state === States.loading}
-      loading={state === States.loading}
-      onPress={onBack}
+      <FormInput
+        onChangeText={onChangePassword}
+        value={password}
+        type="default"
+        status={passwordStatus}
+        message={passwordMessage}
+        placeholder="password"
+        label="password"
       />
-  <Button
-      title="onForgotPassword"
-      style={styles.button}
-      disabled={state === States.loading}
-      loading={state === States.loading}
-      onPress={onForgotPassword}
+      <Button
+        title="onLogin"
+        style={styles.button}
+        disabled={state === States.loading}
+        loading={state === States.loading}
+        onPress={onLogin}
       />
-      </View>
+      <Button
+        title="onBack"
+        style={styles.button}
+        disabled={state === States.loading}
+        loading={state === States.loading}
+        onPress={onBack}
+      />
+      <Button
+        title="onForgotPassword"
+        style={styles.button}
+        disabled={state === States.loading}
+        loading={state === States.loading}
+        onPress={onForgotPassword}
+      />
+    </View>
   )
 
   const networkError = <Error error={Errors.networkError} />
@@ -97,7 +97,7 @@ const Login: React.FC<LoginProps> = ({
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Header title="Header Title" />
+      <Header title="HeaderTitle" />
       {
         {
           [States.default]: content,

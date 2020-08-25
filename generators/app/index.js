@@ -13,7 +13,7 @@ const CONTAINER_FILES = [
 
 const SCREEN_FILES = [
   'index.tsx',
-  'index.test.tsx'
+  'tests/index.test.tsx'
 ]
 
 const parseArrayFromString = (str) => str

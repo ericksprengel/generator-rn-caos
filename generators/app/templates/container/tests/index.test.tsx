@@ -1,7 +1,7 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
 import testSnapshots from 'src/test/helpers/testSnapshots'
-import { Button } from 'src/components'
+import { Button, Header } from 'src/components'
 import * as states from './componentStates'
 import <%= componentName %>, { FormInputStatus, States } from '..'
 
@@ -32,10 +32,9 @@ describe('<%= componentName %> container', (): void => {
     ).root
 
     container
-      .find(
-        (node) => node.type === Button && node.props.title === actionMessage,
-      )
-      .props.onPress()
+      .findByProps({ title: actionMessage })
+      .props
+      .onPress()
 
     expect(<%= action %>).toBeCalled()
   })

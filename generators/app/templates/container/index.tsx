@@ -45,33 +45,33 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
 }) => {
   const content = (
     <View style={styles.container}>
-    <Text><%= componentName %></Text>
-    <Text>State: {state}</Text>
+      <Text><%= componentName %></Text>
+      <Text>State: {state}</Text>
 <% for (const containerParam of containerParams) { -%>
-    <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+      <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
 <% } -%>
-  <% for (const input of inputs) { -%>
-  <FormInput
-      onChangeText={<%= helpers.getInputCallbackName(input) %>}
-      value={<%= input %>}
-      type="default"
-      status={<%= input %>Status}
-      message={<%= input %>Message}
-      placeholder="<%= input %>"
-      label="<%= input %>"
-    />
-  <% } -%>
-  <% for (const action of actions) { -%>
-<Button
-      title="<%= action %>"
-      style={styles.button}
-  <% if (states.includes('loading')) { -%>
-    disabled={state === States.loading}
-      loading={state === States.loading}
-  <% } -%>
-    onPress={<%= action %>}
+<% for (const input of inputs) { -%>
+      <FormInput
+        onChangeText={<%= helpers.getInputCallbackName(input) %>}
+        value={<%= input %>}
+        type="default"
+        status={<%= input %>Status}
+        message={<%= input %>Message}
+        placeholder="<%= input %>"
+        label="<%= input %>"
       />
-  <% } -%>
+<% } -%>
+<% for (const action of actions) { -%>
+      <Button
+        title="<%= action %>"
+        style={styles.button}
+<% if (states.includes('loading')) { -%>
+        disabled={state === States.loading}
+        loading={state === States.loading}
+<% } -%>
+        onPress={<%= action %>}
+      />
+<% } -%>
     </View>
   )
 
@@ -80,7 +80,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Header title="Header Title" />
+      <Header title="HeaderTitle" />
       {
         {
           [States.default]: content,

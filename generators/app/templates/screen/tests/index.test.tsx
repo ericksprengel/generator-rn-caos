@@ -3,16 +3,17 @@ import { create, act, ReactTestInstance } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
-import <%= componentName %>Screen from '.'
+import <%= componentName %>Screen from '..'
 
 describe('<%= componentName %>Screen screen', () => {
+  let containerInstance: ReactTestInstance
   const mockNavigate = jest.fn()
   const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,
     pop: mockNavigationPop,
   })
-  let containerInstance: ReactTestInstance
+
   beforeEach(() => {
     mockNavigate.mockClear()
     mockNavigationPop.mockClear()
