@@ -32,6 +32,7 @@ describe('LoginScreen screen', () => {
       expect(mockNavigate).toHaveBeenCalledTimes(1)
     })
   })
+
   describe('when onBack is called', () => {
     beforeEach(() => {
       act(() => {
@@ -42,6 +43,7 @@ describe('LoginScreen screen', () => {
       expect(mockNavigate).toHaveBeenCalledTimes(1)
     })
   })
+
   describe('when onForgotPassword is called', () => {
     beforeEach(() => {
       act(() => {
@@ -63,6 +65,7 @@ describe('LoginScreen screen', () => {
       expect(containerInstance.props.email).toBe('email')
     })
   })
+
   describe('when changing the password input', () => {
     beforeEach(() => {
       act(() => {

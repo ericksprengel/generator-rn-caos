@@ -3,10 +3,20 @@ import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
 import { Button, Header, Text } from 'src/components'
 import Error, { Errors } from 'src/containers/common/Error'
+<% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
 import States from 'src/containers/common/states'
+<% } -%>
 import styles from './styles'
 
-export { States } 
+<% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
+export { States }
+<% } else { -%>
+export enum States {
+<% for (const state of states) { -%>
+  <%- state -%> = '<%- state -%>',
+<% } -%>
+}
+<% } -%>
 
 export enum FormInputStatus {
   default = 'default',
@@ -75,8 +85,8 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
     </View>
   )
 
-  const networkError = <Error error={Errors.networkError} />
   const genericError = <Error error={Errors.genericError} />
+  const networkError = <Error error={Errors.networkError} />
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -85,8 +95,8 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
         {
           [States.default]: content,
           [States.loading]: content,
-          [States.networkError]: networkError,
           [States.genericError]: genericError,
+          [States.networkError]: networkError,
         }[state]
       }
     </SafeAreaView>

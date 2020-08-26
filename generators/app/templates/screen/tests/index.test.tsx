@@ -21,8 +21,8 @@ describe('<%= componentName %>Screen screen', () => {
       <<%= componentName %>Screen navigation={navigationMock} />,
     ).root.findByType(<%= componentName %>Container)
   })
-
 <% for (const action of actions) { -%>
+
   describe('when <%= action %> is called', () => {
     beforeEach(() => {
       act(() => {
@@ -34,8 +34,8 @@ describe('<%= componentName %>Screen screen', () => {
     })
   })
 <% } -%>
-
 <% for (const input of inputs) { -%>
+
   describe('when changing the <%- input -%> input', () => {
     beforeEach(() => {
       act(() => {

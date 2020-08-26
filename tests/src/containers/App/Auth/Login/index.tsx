@@ -6,7 +6,7 @@ import Error, { Errors } from 'src/containers/common/Error'
 import States from 'src/containers/common/states'
 import styles from './styles'
 
-export { States } 
+export { States }
 
 export enum FormInputStatus {
   default = 'default',
@@ -92,8 +92,8 @@ const Login: React.FC<LoginProps> = ({
     </View>
   )
 
-  const networkError = <Error error={Errors.networkError} />
   const genericError = <Error error={Errors.genericError} />
+  const networkError = <Error error={Errors.networkError} />
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -102,8 +102,8 @@ const Login: React.FC<LoginProps> = ({
         {
           [States.default]: content,
           [States.loading]: content,
-          [States.networkError]: networkError,
           [States.genericError]: genericError,
+          [States.networkError]: networkError,
         }[state]
       }
     </SafeAreaView>

@@ -5,7 +5,7 @@ import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
-import { formatNetworkErrors } from 'src/screens/common'
+import { NetworkError } from 'src/servicesTon/request'
 import <%= componentName %>Container, {
   FormInputStatus,
   States,
@@ -54,8 +54,8 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 
     try {
       setState(States.default)
-    } catch (error) {
-      const errorState = formatNetworkErrors.isNetworkError(error)
+    } catch (err) {
+      const errorState = err instanceof NetworkError
         ? States.networkError
         : States.genericError
       setState(errorState)

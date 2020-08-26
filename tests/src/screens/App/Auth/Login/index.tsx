@@ -5,7 +5,7 @@ import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
-import { formatNetworkErrors } from 'src/screens/common'
+import { NetworkError } from 'src/servicesTon/request'
 import LoginContainer, {
   FormInputStatus,
   States,
@@ -48,8 +48,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     try {
       setState(States.default)
-    } catch (error) {
-      const errorState = formatNetworkErrors.isNetworkError(error)
+    } catch (err) {
+      const errorState = err instanceof NetworkError
         ? States.networkError
         : States.genericError
       setState(errorState)
