@@ -85,18 +85,29 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
     </View>
   )
 
+<% if (states.includes('genericError')) { -%>
   const genericError = <Error error={Errors.genericError} />
+<% } -%>
+<% if (states.includes('networkError')) { -%>
   const networkError = <Error error={Errors.networkError} />
+<% } -%>
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header title="HeaderTitle" />
       {
         {
-          [States.default]: content,
-          [States.loading]: content,
+<% for (const state of states) { -%>
+<% if (!['genericError', 'networkError'].includes(state)) { -%>
+          [States.<%- state -%>]: content,
+<% } -%>
+<% } -%>
+<% if (states.includes('genericError')) { -%>
           [States.genericError]: genericError,
+<% } -%>
+<% if (states.includes('networkError')) { -%>
           [States.networkError]: networkError,
+<% } -%>
         }[state]
       }
     </SafeAreaView>
