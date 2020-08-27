@@ -2,7 +2,9 @@ import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
 import { Button, Header, Text } from 'src/components'
+<% if (states.length > 1) { -%>
 import Error, { Errors } from 'src/containers/common/Error'
+<% } -%>
 <% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
 import States from 'src/containers/common/states'
 <% } -%>
@@ -52,6 +54,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
+<% if (states.length > 1) { -%>
 }) => {
   const content = (
     <View style={styles.container}>
@@ -113,5 +116,41 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
     </SafeAreaView>
   )
 }
+<% } else { -%>
+}) => (
+  <SafeAreaView style={styles.safeArea}>
+    <Header title="HeaderTitle" />
+    <View style={styles.container}>
+      <Text><%= componentName %></Text>
+      <Text>State: {state}</Text>
+<% for (const containerParam of containerParams) { -%>
+      <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+<% } -%>
+<% for (const input of inputs) { -%>
+      <FormInput
+        onChangeText={<%= helpers.getInputCallbackName(input) %>}
+        value={<%= input %>}
+        type="default"
+        status={<%= input %>Status}
+        message={<%= input %>Message}
+        placeholder="<%= input %>"
+        label="<%= input %>"
+      />
+<% } -%>
+<% for (const action of actions) { -%>
+      <Button
+        title="<%= action %>"
+        style={styles.button}
+<% if (states.includes('loading')) { -%>
+        disabled={state === States.loading}
+        loading={state === States.loading}
+<% } -%>
+        onPress={<%= action %>}
+      />
+<% } -%>
+    </View>
+  </SafeAreaView>
+)
+<% } -%>
 
 export default <%= componentName %>
