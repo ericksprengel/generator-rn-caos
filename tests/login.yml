@@ -1,5 +1,5 @@
 App/Auth/Login:
-  states: default,loading,error
+  states: default,loading,genericError,networkError
   params: name
   inputs: email,password
   actions: onLogin,onBack,onForgotPassword

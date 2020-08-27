@@ -13,7 +13,7 @@ const CONTAINER_FILES = [
 
 const SCREEN_FILES = [
   'index.tsx',
-  'index.test.tsx'
+  'tests/index.test.tsx'
 ]
 
 const parseArrayFromString = (str) => str
@@ -72,7 +72,7 @@ module.exports = class extends Generator {
 
   writing () {
     if (!this.yamlDoc) {
-      const states = ['default', 'loading', 'error']
+      const states = ['default', 'loading', 'genericError', 'networkError']
       const componentPath = this.answers.path
       const componentName = this.answers.name
       const containerParams = parseArrayFromString(this.answers.containerParams)

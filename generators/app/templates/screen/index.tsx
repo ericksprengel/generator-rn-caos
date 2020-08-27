@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavigationStackProp } from 'react-navigation-stack'
 import * as R from 'ramda'
 import routes from 'src/navigation/routes'
 import { log } from 'src/utils/native_modules'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
+import { NetworkError } from 'src/servicesTon/request'
 import <%= componentName %>Container, {
   FormInputStatus,
-  State,
+  States,
 } from 'src/containers/<%= componentPath %>/<%= componentName %>'
 
 const LOG_TAG = '<%= componentPath %>/<%= componentName %>'
@@ -20,7 +21,7 @@ export interface <%= componentName %>ScreenProps {
 }
 
 const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({ navigation }) => {
-  const [state, setState] = useState(State.<%= states[0] %>)
+  const [state, setState] = useState(States.<%= states[0] %>)
 <% for (const containerParam of containerParams) { -%>
   const [<%- containerParam -%>, set<%- helpers.toUpperCaseFirstLetter(containerParam) -%>] = useState('')
 <% } -%>
@@ -46,6 +47,24 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 <% } -%>
     },
   })
+
+  const handleFetch = async (): Promise<void> => {
+    log.i(LOG_TAG, 'onHandleFetch')
+    setState(States.loading)
+
+    try {
+      setState(States.default)
+    } catch (err) {
+      const errorState = err instanceof NetworkError
+        ? States.networkError
+        : States.genericError
+      setState(errorState)
+    }
+  }
+
+  useEffect(() => {
+    handleFetch()
+  }, [])
 
 <% for (const action of actions) { -%>
   const <%= helpers.getHandleActionName(action) %> = (): void => {

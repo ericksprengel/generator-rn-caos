@@ -1,8 +1,24 @@
 import React from 'react'
-import { View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
-import { Button, Text } from 'src/components'
+import { Button, Header, Text } from 'src/components'
+<% if (states.length > 1) { -%>
+import Error, { Errors } from 'src/containers/common/Error'
+<% } -%>
+<% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
+import States from 'src/containers/common/states'
+<% } -%>
 import styles from './styles'
+
+<% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
+export { States }
+<% } else { -%>
+export enum States {
+<% for (const state of states) { -%>
+  <%- state -%> = '<%- state -%>',
+<% } -%>
+}
+<% } -%>
 
 export enum FormInputStatus {
   default = 'default',
@@ -10,14 +26,8 @@ export enum FormInputStatus {
   error = 'error',
 }
 
-export enum State {
-<% for (const state of states) { -%>
-  <%- state -%> = '<%- state -%>',
-<% } -%>
-}
-
 export interface <%= componentName %>Props {
-  state: State
+  state: States
 <% for (const containerParam of containerParams) { -%>
   <%- containerParam -%>?: string
 <% } -%>
@@ -44,36 +54,103 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-}) => (
-  <View style={styles.container}>
-    <Text><%= componentName %></Text>
-    <Text>State: {state}</Text>
+<% if (states.length > 1) { -%>
+}) => {
+  const content = (
+    <View style={styles.container}>
+      <Text><%= componentName %></Text>
+      <Text>State: {state}</Text>
 <% for (const containerParam of containerParams) { -%>
-    <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+      <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
 <% } -%>
 <% for (const input of inputs) { -%>
-    <FormInput
-      onChangeText={<%= helpers.getInputCallbackName(input) %>}
-      value={<%= input %>}
-      type="default"
-      status={<%= input %>Status}
-      message={<%= input %>Message}
-      placeholder="<%= input %>"
-      label="<%= input %>"
-    />
+      <FormInput
+        onChangeText={<%= helpers.getInputCallbackName(input) %>}
+        value={<%= input %>}
+        type="default"
+        status={<%= input %>Status}
+        message={<%= input %>Message}
+        placeholder="<%= input %>"
+        label="<%= input %>"
+      />
 <% } -%>
 <% for (const action of actions) { -%>
-    <Button
-      title="<%= action %>"
-      style={styles.button}
+      <Button
+        title="<%= action %>"
+        style={styles.button}
 <% if (states.includes('loading')) { -%>
-      disabled={state === State.loading}
-      loading={state === State.loading}
+        disabled={state === States.loading}
+        loading={state === States.loading}
 <% } -%>
-      onPress={<%= action %>}
-    />
+        onPress={<%= action %>}
+      />
 <% } -%>
-  </View>
+    </View>
+  )
+
+<% if (states.includes('genericError')) { -%>
+  const genericError = <Error error={Errors.genericError} />
+<% } -%>
+<% if (states.includes('networkError')) { -%>
+  const networkError = <Error error={Errors.networkError} />
+<% } -%>
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <Header title="HeaderTitle" />
+      {
+        {
+<% for (const state of states) { -%>
+<% if (!['genericError', 'networkError'].includes(state)) { -%>
+          [States.<%- state -%>]: content,
+<% } -%>
+<% } -%>
+<% if (states.includes('genericError')) { -%>
+          [States.genericError]: genericError,
+<% } -%>
+<% if (states.includes('networkError')) { -%>
+          [States.networkError]: networkError,
+<% } -%>
+        }[state]
+      }
+    </SafeAreaView>
+  )
+}
+<% } else { -%>
+}) => (
+  <SafeAreaView style={styles.safeArea}>
+    <Header title="HeaderTitle" />
+    <View style={styles.container}>
+      <Text><%= componentName %></Text>
+      <Text>State: {state}</Text>
+<% for (const containerParam of containerParams) { -%>
+      <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+<% } -%>
+<% for (const input of inputs) { -%>
+      <FormInput
+        onChangeText={<%= helpers.getInputCallbackName(input) %>}
+        value={<%= input %>}
+        type="default"
+        status={<%= input %>Status}
+        message={<%= input %>Message}
+        placeholder="<%= input %>"
+        label="<%= input %>"
+      />
+<% } -%>
+<% for (const action of actions) { -%>
+      <Button
+        title="<%= action %>"
+        style={styles.button}
+<% if (states.includes('loading')) { -%>
+        disabled={state === States.loading}
+        loading={state === States.loading}
+<% } -%>
+        onPress={<%= action %>}
+      />
+<% } -%>
+    </View>
+  </SafeAreaView>
 )
+<% } -%>
 
 export default <%= componentName %>

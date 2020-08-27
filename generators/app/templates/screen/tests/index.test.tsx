@@ -3,16 +3,17 @@ import { create, act, ReactTestInstance } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
 import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
-import <%= componentName %>Screen from '.'
+import <%= componentName %>Screen from '..'
 
 describe('<%= componentName %>Screen screen', () => {
+  let containerInstance: ReactTestInstance
   const mockNavigate = jest.fn()
   const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,
     pop: mockNavigationPop,
   })
-  let containerInstance: ReactTestInstance
+
   beforeEach(() => {
     mockNavigate.mockClear()
     mockNavigationPop.mockClear()
@@ -20,8 +21,8 @@ describe('<%= componentName %>Screen screen', () => {
       <<%= componentName %>Screen navigation={navigationMock} />,
     ).root.findByType(<%= componentName %>Container)
   })
-
 <% for (const action of actions) { -%>
+
   describe('when <%= action %> is called', () => {
     beforeEach(() => {
       act(() => {
@@ -33,8 +34,8 @@ describe('<%= componentName %>Screen screen', () => {
     })
   })
 <% } -%>
-
 <% for (const input of inputs) { -%>
+
   describe('when changing the <%- input -%> input', () => {
     beforeEach(() => {
       act(() => {
