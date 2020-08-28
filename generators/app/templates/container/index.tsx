@@ -2,7 +2,7 @@ import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
 import { Button, Header, Text } from 'src/components'
-<% if (states.length > 1) { -%>
+<% if (['genericError', 'networkError'].some(s => states.includes(s))) { -%>
 import Error, { Errors } from 'src/containers/common/Error'
 <% } -%>
 <% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
@@ -54,7 +54,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <%= helpers.getInputCallbackName(input) %>,
 <% } -%>
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
-<% if (states.length > 1) { -%>
+<% if (states.length > 1 && !(states.every(s => ['default', 'loading'].includes(s)))) { -%>
 }) => {
   const content = (
     <View style={styles.container}>

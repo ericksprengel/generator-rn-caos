@@ -50,9 +50,12 @@ const <%= componentName %>Screen: React.FC<<%= componentName %>ScreenProps> = ({
 
   const handleFetch = async (): Promise<void> => {
     log.i(LOG_TAG, 'onHandleFetch')
+    log.e(LOG_TAG, 'TODO: <%= componentName %>/handleFetch NOT IMPLEMENTED')
+
     setState(States.loading)
 
     try {
+      await Promise.resolve()
       setState(States.default)
     } catch (err) {
       const errorState = err instanceof NetworkError
