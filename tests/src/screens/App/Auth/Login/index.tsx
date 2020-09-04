@@ -44,9 +44,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   const handleFetch = async (): Promise<void> => {
     log.i(LOG_TAG, 'onHandleFetch')
+    log.e(LOG_TAG, 'TODO: Login/handleFetch NOT IMPLEMENTED')
+
     setState(States.loading)
 
     try {
+      await Promise.resolve()
       setState(States.default)
     } catch (err) {
       const errorState = err instanceof NetworkError

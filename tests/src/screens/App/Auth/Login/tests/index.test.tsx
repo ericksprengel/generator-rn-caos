@@ -6,13 +6,14 @@ import LoginContainer from 'src/containers/App/Auth/Login'
 import LoginScreen from '..'
 
 describe('LoginScreen screen', () => {
-  let containerInstance: ReactTestInstance
   const mockNavigate = jest.fn()
   const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,
     pop: mockNavigationPop,
   })
+
+  let containerInstance: ReactTestInstance
 
   beforeEach(() => {
     mockNavigate.mockClear()

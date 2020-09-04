@@ -6,13 +6,14 @@ import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<
 import <%= componentName %>Screen from '..'
 
 describe('<%= componentName %>Screen screen', () => {
-  let containerInstance: ReactTestInstance
   const mockNavigate = jest.fn()
   const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
     navigate: mockNavigate,
     pop: mockNavigationPop,
   })
+
+  let containerInstance: ReactTestInstance
 
   beforeEach(() => {
     mockNavigate.mockClear()
