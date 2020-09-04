@@ -1,6 +1,6 @@
 {
   "name": "generator-rn-caos",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "React Native - CAOS (Coding An Organized Software)",
   "files": [
     "generators"
