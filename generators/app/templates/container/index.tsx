@@ -56,7 +56,7 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
 <% if (states.length > 1 && !(states.every(s => ['default', 'loading'].includes(s)))) { -%>
 }) => {
-  const content = (
+  const renderContent = () => (
     <View style={styles.container}>
       <Text><%= componentName %></Text>
       <Text>State: {state}</Text>
@@ -89,12 +89,17 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   )
 
 <% if (states.includes('genericError')) { -%>
-  const genericError = <Error error={Errors.genericError} />
+  const renderGenericError = () => (
+    <Error error={Errors.genericError} onRetry={() => undefined} />
+  )
+
 <% } -%>
 <% if (states.includes('networkError')) { -%>
-  const networkError = <Error error={Errors.networkError} />
-<% } -%>
+  const renderNetworkError = () => (
+    <Error error={Errors.networkError} onRetry={() => undefined} />
+  )
 
+<% } -%>
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header title="HeaderTitle" />
@@ -102,14 +107,14 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
         {
 <% for (const state of states) { -%>
 <% if (!['genericError', 'networkError'].includes(state)) { -%>
-          [States.<%- state -%>]: content,
+          [States.<%- state -%>]: renderContent(),
 <% } -%>
 <% } -%>
 <% if (states.includes('genericError')) { -%>
-          [States.genericError]: genericError,
+          [States.genericError]: renderGenericError(),
 <% } -%>
 <% if (states.includes('networkError')) { -%>
-          [States.networkError]: networkError,
+          [States.networkError]: renderNetworkError(),
 <% } -%>
         }[state]
       }

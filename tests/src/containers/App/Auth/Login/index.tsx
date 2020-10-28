@@ -45,7 +45,7 @@ const Login: React.FC<LoginProps> = ({
   onBack,
   onForgotPassword,
 }) => {
-  const content = (
+  const renderContent = () => (
     <View style={styles.container}>
       <Text>Login</Text>
       <Text>State: {state}</Text>
@@ -92,18 +92,23 @@ const Login: React.FC<LoginProps> = ({
     </View>
   )
 
-  const genericError = <Error error={Errors.genericError} />
-  const networkError = <Error error={Errors.networkError} />
+  const renderGenericError = () => (
+    <Error error={Errors.genericError} onRetry={() => undefined} />
+  )
+
+  const renderNetworkError = () => (
+    <Error error={Errors.networkError} onRetry={() => undefined} />
+  )
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header title="HeaderTitle" />
       {
         {
-          [States.default]: content,
-          [States.loading]: content,
-          [States.genericError]: genericError,
-          [States.networkError]: networkError,
+          [States.default]: renderContent(),
+          [States.loading]: renderContent(),
+          [States.genericError]: renderGenericError(),
+          [States.networkError]: renderNetworkError(),
         }[state]
       }
     </SafeAreaView>
