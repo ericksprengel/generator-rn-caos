@@ -1,11 +1,13 @@
 import React from 'react'
+
 import { create, act, ReactTestInstance } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
-import <%= componentName %>Container from 'src/containers/<%= componentPath %>/<%= componentName %>'
-import <%= componentName %>Screen from '..'
 
-describe('<%= componentName %>Screen screen', () => {
+import { <%= screenName %>Container } from 'src/features/<%= featureName %>/screens/<%= screenName %>/ui'
+import { <%= screenName %>Screen } from '..'
+
+describe('<%= screenName %>Screen screen', () => {
   const mockNavigate = jest.fn()
   const mockNavigationPop = jest.fn()
   const navigationMock = mock<NavigationStackProp>({
@@ -16,11 +18,10 @@ describe('<%= componentName %>Screen screen', () => {
   let containerInstance: ReactTestInstance
 
   beforeEach(() => {
-    mockNavigate.mockClear()
-    mockNavigationPop.mockClear()
+    jest.clearAllMocks()
     containerInstance = create(
-      <<%= componentName %>Screen navigation={navigationMock} />,
-    ).root.findByType(<%= componentName %>Container)
+      <<%= screenName %>Screen navigation={navigationMock} />,
+    ).root.findByType(<%= screenName %>Container)
   })
 <% for (const action of actions) { -%>
 

@@ -3,17 +3,14 @@ var fs = require('fs')
 var helpers = require('./helpers')
 var Generator = require('yeoman-generator')
 
-const CONTAINER_FILES = [
+const FILES = [
   'index.tsx',
-  'styles.ts',
-  'tests/componentStates.tsx',
-  'tests/index.stories.ts',
-  'tests/index.test.tsx'
-]
-
-const SCREEN_FILES = [
-  'index.tsx',
-  'tests/index.test.tsx'
+  'tests/index.test.tsx',
+  'ui/index.tsx',
+  'ui/styles.ts',
+  'ui/tests/componentStates.tsx',
+  'ui/tests/index.stories.ts',
+  'ui/tests/index.test.tsx'
 ]
 
 const parseArrayFromString = (str) => str
@@ -44,18 +41,18 @@ module.exports = class extends Generator {
     this.answers = await this.prompt([
       {
         type: 'input',
+        name: 'feature',
+        message: 'What feature will be deployed?'
+      },
+      {
+        type: 'input',
         name: 'name',
-        message: 'Your screen/container name:'
+        message: 'Your screen name:'
       },
       {
         type: 'input',
-        name: 'path',
-        message: 'Your screen/container path dir:'
-      },
-      {
-        type: 'input',
-        name: 'containerParams',
-        message: 'Your container params (ex.: name, fullname):'
+        name: 'uiParams',
+        message: 'Your ui params (ex.: name, fullname):'
       },
       {
         type: 'input',
@@ -73,103 +70,64 @@ module.exports = class extends Generator {
   writing () {
     if (!this.yamlDoc) {
       const states = ['default', 'loading', 'genericError', 'networkError']
-      const componentPath = this.answers.path
-      const componentName = this.answers.name
-      const containerParams = parseArrayFromString(this.answers.containerParams)
+      const featureName = this.answers.feature
+      const screenName = this.answers.name
+      const uiParams = parseArrayFromString(this.answers.uiParams)
       const inputs = parseArrayFromString(this.answers.inputs)
       const actions = parseArrayFromString(this.answers.actions)
-      this._writeContainer({
-        componentPath,
-        componentName,
-        states,
-        containerParams,
-        inputs,
-        actions
-      })
+
       this._writeScreen({
-        componentPath,
-        componentName,
+        featureName,
+        screenName,
         states,
-        containerParams,
+        uiParams,
         inputs,
         actions
       })
+
       return
     }
 
     for (var fullPath in this.yamlDoc) {
       this.log('fullPath:', fullPath)
       const screenYaml = this.yamlDoc[fullPath]
-      const componentPath = fullPath.slice(0, fullPath.lastIndexOf('/'))
-      const componentName = fullPath.slice(fullPath.lastIndexOf('/') + 1)
+      const featureName = fullPath.slice(0, fullPath.lastIndexOf('/'))
+      const screenName = fullPath.slice(fullPath.lastIndexOf('/') + 1)
       const states = parseArrayFromString(screenYaml.states)
-      const containerParams = parseArrayFromString(screenYaml.params)
+      const uiParams = parseArrayFromString(screenYaml.params)
       const inputs = parseArrayFromString(screenYaml.inputs)
       const actions = parseArrayFromString(screenYaml.actions)
       // this.log({
       //   componentPath, componentName, states, inputs, actions
       // })
-      this._writeContainer({
-        componentPath,
-        componentName,
-        states,
-        containerParams,
-        inputs,
-        actions
-      })
       this._writeScreen({
-        componentPath,
-        componentName,
+        featureName,
+        screenName,
         states,
-        containerParams,
+        uiParams,
         inputs,
         actions
       })
-    }
-  }
-
-  _writeContainer ({
-    componentPath,
-    componentName,
-    states,
-    containerParams,
-    inputs,
-    actions
-  }) {
-    for (const item of CONTAINER_FILES) {
-      this.fs.copyTpl(
-        this.templatePath('container/' + item),
-        this.destinationPath('src/containers/' + componentPath + '/' + componentName + '/' + item),
-        {
-          componentName,
-          componentPath,
-          states,
-          containerParams,
-          inputs,
-          actions,
-          helpers
-        }
-      )
     }
   }
 
   _writeScreen ({
-    componentPath,
-    componentName,
+    featureName,
+    screenName,
     states,
-    containerParams,
+    uiParams,
     inputs,
     actions
   }) {
-    for (const item of SCREEN_FILES) {
+    for (const item of FILES) {
       this.fs.copyTpl(
-        this.templatePath('screen/' + item),
-        this.destinationPath('src/screens/' + componentPath + '/' + componentName + '/' + item),
+        this.templatePath('features/screens/' + item),
+        this.destinationPath('src/features/' + featureName + '/screens/' + screenName + '/' + item),
         {
-          componentName,
-          componentPath,
+          featureName,
+          screenName,
           states,
-          containerParams,
+          uiParams,
           inputs,
           actions,
           helpers

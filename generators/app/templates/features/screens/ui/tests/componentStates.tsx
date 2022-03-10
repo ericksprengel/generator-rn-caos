@@ -1,13 +1,14 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
-import <%= componentName %>, { FormInputStatus, States } from '..'
+
+import { <%= screenName %>Container, FormInputStatus, States } from '..'
 
 <% if (states.length > 1) { -%>
 const Container: React.FC<{ state: States }> = ({ state }) => (
-  <<%= componentName %>
+  <<%= screenName %>Container
     state={state}
-<% for (const containerParam of containerParams) { -%>
-    <%- containerParam -%>="<%- containerParam -%>Param"
+<% for (const uiParam of uiParams) { -%>
+    <%- uiParam -%>="<%- uiParam -%>Param"
 <% } -%>
 <% for (const input of inputs) { -%>
     <%- input -%>="<%- input -%> bla"
@@ -28,8 +29,8 @@ const <%- helpers.getStateComponentNameForStorybook(state) -%>: React.FC = () =>
 const Default: React.FC = () => (
   <<%= componentName %>
     state={States.<%- states[0] -%>}
-<% for (const containerParam of containerParams) { -%>
-    <%- containerParam -%>="<%- containerParam -%>Param"
+<% for (const uiParam of uiParams) { -%>
+    <%- uiParam -%>="<%- uiParam -%>Param"
 <% } -%>
 <% for (const input of inputs) { -%>
     <%- input -%>="<%- input -%> bla"
