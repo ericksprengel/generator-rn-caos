@@ -1,4 +1,4 @@
-App/Auth/Login:
+Auth/Login:
   states: default,loading,genericError,networkError
   params: name
   inputs: email,password

@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "test": "cd tests && ./test.sh",
+    "test:yml": "cd tests && yo rn-caos ./login.yml",
     "lint": "eslint './generators'"
   },
   "keywords": [

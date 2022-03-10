@@ -5,13 +5,13 @@ interact
 
 spawn yo rn-caos
 
-expect "? Your screen/container name:"
+expect "? What feature will be deployed?"
+send "Auth\n"
+
+expect "? Your screen name:"
 send "Login\n"
 
-expect "? Your screen/container path dir:"
-send "App/Auth\n"
-
-expect "? Your container params (ex.: name, fullname):"
+expect "? Your ui params (ex.: name, fullname):"
 send "name\n"
 
 expect "? List input views (ex.: email, password):"

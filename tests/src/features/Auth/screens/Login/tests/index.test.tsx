@@ -1,9 +1,11 @@
 import React from 'react'
+
 import { create, act, ReactTestInstance } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
-import LoginContainer from 'src/containers/App/Auth/Login'
-import LoginScreen from '..'
+
+import { LoginContainer } from 'src/features/Auth/screens/Login/ui'
+import { LoginScreen } from '..'
 
 describe('LoginScreen screen', () => {
   const mockNavigate = jest.fn()
@@ -16,8 +18,7 @@ describe('LoginScreen screen', () => {
   let containerInstance: ReactTestInstance
 
   beforeEach(() => {
-    mockNavigate.mockClear()
-    mockNavigationPop.mockClear()
+    jest.clearAllMocks()
     containerInstance = create(
       <LoginScreen navigation={navigationMock} />,
     ).root.findByType(LoginContainer)

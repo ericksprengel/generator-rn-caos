@@ -1,8 +1,11 @@
 import React from 'react'
+
 import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
-import { Button, Header, Text } from 'src/components'
+
 import Error, { Errors } from 'src/containers/common/Error'
+import { Button, Header, Text } from 'src/components'
+
 import States from 'src/containers/common/states'
 import styles from './styles'
 
@@ -14,7 +17,7 @@ export enum FormInputStatus {
   error = 'error',
 }
 
-export interface LoginProps {
+export interface LoginContainerProps {
   state: States
   name?: string
   email?: string
@@ -30,7 +33,7 @@ export interface LoginProps {
   onForgotPassword: () => void
 }
 
-const Login: React.FC<LoginProps> = ({
+export const LoginContainer: React.FC<LoginContainerProps> = ({
   state,
   name,
   email,
@@ -45,7 +48,7 @@ const Login: React.FC<LoginProps> = ({
   onBack,
   onForgotPassword,
 }) => {
-  const renderContent = () => (
+  const renderContent = (): React.ReactElement => (
     <View style={styles.container}>
       <Text>Login</Text>
       <Text>State: {state}</Text>
@@ -92,12 +95,12 @@ const Login: React.FC<LoginProps> = ({
     </View>
   )
 
-  const renderGenericError = () => (
-    <Error error={Errors.genericError} onRetry={() => undefined} />
+  const renderGenericError = (): React.ReactElement => (
+    <Error error={Errors.genericError} onRetry={(): void => undefined} />
   )
 
-  const renderNetworkError = () => (
-    <Error error={Errors.networkError} onRetry={() => undefined} />
+  const renderNetworkError = (): React.ReactElement => (
+    <Error error={Errors.networkError} onRetry={(): void => undefined} />
   )
 
   return (
@@ -114,5 +117,3 @@ const Login: React.FC<LoginProps> = ({
     </SafeAreaView>
   )
 }
-
-export default Login

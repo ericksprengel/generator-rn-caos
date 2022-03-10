@@ -105,5 +105,4 @@ export const <%= screenName %>Screen: React.FC<<%= screenName %>ScreenProps> = (
 <% } -%>
     />
   )
-
 }
