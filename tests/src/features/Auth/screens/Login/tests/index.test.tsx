@@ -1,26 +1,41 @@
 import React from 'react'
-import { create, act, ReactTestInstance } from 'react-test-renderer'
+
+import { create, act, ReactTestInstance, ReactTestRenderer } from 'react-test-renderer'
 import { NavigationStackProp } from 'react-navigation-stack'
 import { mock } from 'jest-mock-extended'
-import LoginContainer from 'src/containers/App/Auth/Login'
-import LoginScreen from '..'
 
-describe('LoginScreen screen', () => {
-  const mockNavigate = jest.fn()
-  const mockNavigationPop = jest.fn()
-  const navigationMock = mock<NavigationStackProp>({
-    navigate: mockNavigate,
-    pop: mockNavigationPop,
+import { LoginContainer } from 'src/features/Auth/screens/Login/ui'
+import { LoginScreen } from '..'
+
+const mockNavigate = jest.fn()
+const mockNavigationGoBack = jest.fn()
+const navigationMock = mock<NavigationStackProp>({
+  navigate: mockNavigate,
+  goBack: mockNavigationGoBack,
+})
+
+const getContainerInstance = async (): Promise<ReactTestInstance> => {
+  let renderer: ReactTestRenderer | undefined
+
+  // eslint-disable-next-line @typescript-eslint/require-await
+  await act(async () => {
+    renderer = create(<LoginScreen navigation={navigationMock} />)
   })
 
+  if (!renderer) {
+    throw new Error('renderer not defined')
+  }
+
+  return renderer.root.findByType(LoginContainer)
+}
+
+describe('LoginScreen screen', () => {
   let containerInstance: ReactTestInstance
 
-  beforeEach(() => {
-    mockNavigate.mockClear()
-    mockNavigationPop.mockClear()
-    containerInstance = create(
-      <LoginScreen navigation={navigationMock} />,
-    ).root.findByType(LoginContainer)
+  beforeEach(async () => {
+    jest.clearAllMocks()
+
+    containerInstance = await getContainerInstance()
   })
 
   describe('when onLogin is called', () => {

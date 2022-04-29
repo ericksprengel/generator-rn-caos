@@ -1,10 +1,13 @@
 import React from 'react'
+
 import { SafeAreaView, View } from 'react-native'
 import { FormInput } from 'jadd-components'
-import { Button, Header, Text } from 'src/components'
+
 <% if (['genericError', 'networkError'].some(s => states.includes(s))) { -%>
 import Error, { Errors } from 'src/containers/common/Error'
 <% } -%>
+import { Button, Header, Text } from 'src/components'
+
 <% if (['default', 'loading', 'genericError', 'networkError'].every(s => states.includes(s))) { -%>
 import States from 'src/containers/common/states'
 <% } -%>
@@ -15,7 +18,7 @@ export { States }
 <% } else { -%>
 export enum States {
 <% for (const state of states) { -%>
-  <%- state -%> = '<%- state -%>',
+    <%- state -%> = '<%- state -%>',
 <% } -%>
 }
 <% } -%>
@@ -26,10 +29,10 @@ export enum FormInputStatus {
   error = 'error',
 }
 
-export interface <%= componentName %>Props {
+export interface <%= screenName %>ContainerProps {
   state: States
-<% for (const containerParam of containerParams) { -%>
-  <%- containerParam -%>?: string
+<% for (const uiParam of uiParams) { -%>
+  <%- uiParam -%>?: string
 <% } -%>
 <% for (const input of inputs) { -%>
   <%- input -%>?: string
@@ -42,10 +45,10 @@ export interface <%= componentName %>Props {
 -%>
 }
 
-const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
+export const <%= screenName %>Container: React.FC<<%= screenName %>ContainerProps> = ({
   state,
-<% for (const containerParam of containerParams) { -%>
-  <%- containerParam -%>,
+<% for (const uiParam of uiParams) { -%>
+  <%- uiParam -%>,
 <% } -%>
 <% for (const input of inputs) { -%>
   <%- input -%>,
@@ -56,12 +59,12 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
 <%= actions.map((action) => '  ' + action + ',\n').join('') -%>
 <% if (states.length > 1 && !(states.every(s => ['default', 'loading'].includes(s)))) { -%>
 }) => {
-  const renderContent = () => (
+  const renderContent = (): React.ReactElement => (
     <View style={styles.container}>
-      <Text><%= componentName %></Text>
+      <Text><%= screenName %></Text>
       <Text>State: {state}</Text>
-<% for (const containerParam of containerParams) { -%>
-      <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+<% for (const uiParam of uiParams) { -%>
+      <Text><%- uiParam -%>: {<%- uiParam -%>}</Text>
 <% } -%>
 <% for (const input of inputs) { -%>
       <FormInput
@@ -89,14 +92,14 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   )
 
 <% if (states.includes('genericError')) { -%>
-  const renderGenericError = () => (
-    <Error error={Errors.genericError} onRetry={() => undefined} />
+  const renderGenericError = (): React.ReactElement => (
+    <Error error={Errors.genericError} onRetry={(): void => undefined} />
   )
 
 <% } -%>
 <% if (states.includes('networkError')) { -%>
-  const renderNetworkError = () => (
-    <Error error={Errors.networkError} onRetry={() => undefined} />
+  const renderNetworkError = (): React.ReactElement => (
+    <Error error={Errors.networkError} onRetry={(): void => undefined} />
   )
 
 <% } -%>
@@ -126,10 +129,10 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   <SafeAreaView style={styles.safeArea}>
     <Header title="HeaderTitle" />
     <View style={styles.container}>
-      <Text><%= componentName %></Text>
+      <Text><%= screenName %></Text>
       <Text>State: {state}</Text>
-<% for (const containerParam of containerParams) { -%>
-      <Text><%- containerParam -%>: {<%- containerParam -%>}</Text>
+<% for (const uiParam of uiParams) { -%>
+      <Text><%- uiParam -%>: {<%- uiParam -%>}</Text>
 <% } -%>
 <% for (const input of inputs) { -%>
       <FormInput
@@ -157,5 +160,3 @@ const <%= componentName %>: React.FC<<%= componentName %>Props> = ({
   </SafeAreaView>
 )
 <% } -%>
-
-export default <%= componentName %>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
+
 import testSnapshots from 'src/test/helpers/testSnapshots'
-import { Button, Header } from 'src/components'
 import * as states from './componentStates'
-import Login, { FormInputStatus, States } from '..'
+import { LoginContainer, FormInputStatus, States } from '..'
 
 describe('Login container', (): void => {
   testSnapshots(states)
@@ -13,7 +13,7 @@ describe('Login container', (): void => {
     const actionMessage = 'onLogin'
 
     const container = create(
-      <Login
+      <LoginContainer
         state={States.default}
         name="nameParam"
         email="email bla"
@@ -43,7 +43,7 @@ describe('Login container', (): void => {
     const actionMessage = 'onBack'
 
     const container = create(
-      <Login
+      <LoginContainer
         state={States.default}
         name="nameParam"
         email="email bla"
@@ -73,7 +73,7 @@ describe('Login container', (): void => {
     const actionMessage = 'onForgotPassword'
 
     const container = create(
-      <Login
+      <LoginContainer
         state={States.default}
         name="nameParam"
         email="email bla"

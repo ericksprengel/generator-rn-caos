@@ -1,11 +1,11 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
-import testSnapshots from 'src/test/helpers/testSnapshots'
-import { Button, Header } from 'src/components'
-import * as states from './componentStates'
-import <%= componentName %>, { FormInputStatus, States } from '..'
 
-describe('<%= componentName %> container', (): void => {
+import testSnapshots from 'src/test/helpers/testSnapshots'
+import * as states from './componentStates'
+import { <%= screenName %>Container, FormInputStatus, States } from '..'
+
+describe('<%= screenName %> container', (): void => {
   testSnapshots(states)
 <% for (const action of actions) { -%>
   
@@ -14,10 +14,10 @@ describe('<%= componentName %> container', (): void => {
     const actionMessage = '<%= action %>'
 
     const container = create(
-      <<%= componentName %>
+      <<%= screenName %>Container
         state={States.<%- states[0] -%>}
-<% for (const containerParam of containerParams) { -%>
-        <%- containerParam -%>="<%- containerParam -%>Param"
+<% for (const uiParam of uiParams) { -%>
+        <%- uiParam -%>="<%- uiParam -%>Param"
 <% } -%>
 <% for (const input of inputs) { -%>
         <%- input -%>="<%- input -%> bla"

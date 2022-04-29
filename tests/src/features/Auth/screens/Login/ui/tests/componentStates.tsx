@@ -1,9 +1,10 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
-import Login, { FormInputStatus, States } from '..'
+
+import { LoginContainer, FormInputStatus, States } from '..'
 
 const Container: React.FC<{ state: States }> = ({ state }) => (
-  <Login
+  <LoginContainer
     state={state}
     name="nameParam"
     email="email bla"

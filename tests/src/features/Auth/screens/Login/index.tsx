@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { NavigationStackProp } from 'react-navigation-stack'
+import React, { useState, useEffect } from 'react'
 import * as R from 'ramda'
-import routes from 'src/navigation/routes'
+
+import { NavigationStackProp } from 'react-navigation-stack'
+
+import { NetworkError } from 'src/servicesTon/request'
 import { log } from 'src/utils/native_modules'
+import routes from 'src/navigation/routes'
 import useForm from 'src/utils/hooks/useForm'
 import validators from 'src/utils/validators'
-import { NetworkError } from 'src/servicesTon/request'
-import LoginContainer, {
+
+import {
+  LoginContainer,
   FormInputStatus,
   States,
-} from 'src/containers/App/Auth/Login'
+} from 'src/features/Auth/screens/Login/ui'
 
-const LOG_TAG = 'App/Auth/Login'
+const LOG_TAG = 'Auth/Login'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NavigationParams {}
@@ -20,9 +24,10 @@ export interface LoginScreenProps {
   navigation: NavigationStackProp<NavigationParams>
 }
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [state, setState] = useState(States.default)
   const [name, setName] = useState('')
+
   const { formData, formErrors, onChangeFormInput, isFormValid } = useForm({
     initialData: {
       email: '',
@@ -66,6 +71,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const handleOnLogin = (): void => {
     log.i(LOG_TAG, 'onLogin')
     log.e(LOG_TAG, 'TODO: Login/onLogin NOT IMPLEMENTED')
+    
     if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
@@ -74,6 +80,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const handleOnBack = (): void => {
     log.i(LOG_TAG, 'onBack')
     log.e(LOG_TAG, 'TODO: Login/onBack NOT IMPLEMENTED')
+    
     if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
@@ -82,10 +89,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const handleOnForgotPassword = (): void => {
     log.i(LOG_TAG, 'onForgotPassword')
     log.e(LOG_TAG, 'TODO: Login/onForgotPassword NOT IMPLEMENTED')
+    
     if (isFormValid() || !isFormValid()) {
       navigation.navigate(routes.App.itself)
     }
   }
+
 
   return (
     <LoginContainer
@@ -109,5 +118,3 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     />
   )
 }
-
-export default LoginScreen
