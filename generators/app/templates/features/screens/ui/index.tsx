@@ -80,7 +80,7 @@ export const <%= screenName %>Container: React.FC<<%= screenName %>ContainerProp
 <% for (const action of actions) { -%>
       <Button
         title="<%= action %>"
-        style={styles.button}
+        buttonStyle={styles.button}
 <% if (states.includes('loading')) { -%>
         disabled={state === States.loading}
         loading={state === States.loading}
@@ -148,7 +148,7 @@ export const <%= screenName %>Container: React.FC<<%= screenName %>ContainerProp
 <% for (const action of actions) { -%>
       <Button
         title="<%= action %>"
-        style={styles.button}
+        buttonStyle={styles.button}
 <% if (states.includes('loading')) { -%>
         disabled={state === States.loading}
         loading={state === States.loading}
