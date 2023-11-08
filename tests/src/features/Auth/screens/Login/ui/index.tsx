@@ -73,21 +73,21 @@ export const LoginContainer: React.FC<LoginContainerProps> = ({
       />
       <Button
         title="onLogin"
-        style={styles.button}
+        buttonStyle={styles.button}
         disabled={state === States.loading}
         loading={state === States.loading}
         onPress={onLogin}
       />
       <Button
         title="onBack"
-        style={styles.button}
+        buttonStyle={styles.button}
         disabled={state === States.loading}
         loading={state === States.loading}
         onPress={onBack}
       />
       <Button
         title="onForgotPassword"
-        style={styles.button}
+        buttonStyle={styles.button}
         disabled={state === States.loading}
         loading={state === States.loading}
         onPress={onForgotPassword}
