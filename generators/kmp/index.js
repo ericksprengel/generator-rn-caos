@@ -68,19 +68,18 @@ module.exports = class extends Generator {
       return
     }
 
-    for (var fullPath in this.yamlDoc) {
-      this.log('fullPath:', fullPath)
-      const featureName = fullPath.slice(0, fullPath.lastIndexOf('/'))
-      const featurePluginName = fullPath.slice(1, fullPath.lastIndexOf('/'))
-      this.log({
-        featureName,
-        featurePluginName
-      })
-      this._writeScreen({
-        featureName,
-        featurePluginName
-      })
-    }
+    this.log('featureName: ', this.yamlDoc.featureName)
+    this.log('featurePluginName: ', this.yamlDoc.featurePluginName)
+    const featureName = this.yamlDoc.featureName
+    const featurePluginName = this.yamlDoc.featurePluginName
+    this.log({
+      featureName,
+      featurePluginName
+    })
+    this._writeScreen({
+      featureName,
+      featurePluginName
+    })
   }
 
   _writeScreen ({ featureName, featurePluginName }) {
