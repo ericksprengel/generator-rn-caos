@@ -13,9 +13,6 @@ const FILES = [{
   fileType: 'mainFile'
 }]
 
-// const parseArrayFromString = (str) =>
-//   str ? str.split(',').map((item) => item.trim()) : []
-
 module.exports = class extends Generator {
   // The name `constructor` is important here
   constructor (args, opts) {
