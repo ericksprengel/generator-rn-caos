@@ -8,6 +8,8 @@
   "scripts": {
     "test": "cd tests && ./test.sh",
     "test:yml": "cd tests && yo rn-caos ./login.yml",
+    "test:kmp": "cd tests && ./test-kmp.sh",
+    "test:kmp-yml": "cd tests && yo rn-caos ./kmp.yml",
     "lint": "eslint './generators'"
   },
   "keywords": [
